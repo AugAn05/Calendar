@@ -9,6 +9,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL + '/api';
 
