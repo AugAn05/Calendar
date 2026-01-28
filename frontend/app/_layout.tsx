@@ -1,0 +1,16 @@
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+
+export default function RootLayout() {
+  return (
+    <>
+      <StatusBar style="light" />
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="add-course" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="edit-course" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="mark-attendance" options={{ presentation: 'modal' }} />
+      </Stack>
+    </>
+  );
+}
