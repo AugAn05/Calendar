@@ -8,6 +8,7 @@ import {
   RefreshControl,
   Alert,
   Platform,
+  Pressable,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
