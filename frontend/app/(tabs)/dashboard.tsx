@@ -112,30 +112,23 @@ export default function Dashboard() {
   };
 
   const getClassesNeeded = (course: Course) => {
-    // Use totalClassesInSemester for calculations if available
-    const total = course.totalClassesInSemester || course.totalClasses;
+    // Simple calculation: How many more to reach minimum
+    let minRequired;
     
-    // Calculate threshold percentage
-    let thresholdPercent;
-    if (course.minAttendancePercentage) {
-      thresholdPercent = course.minAttendancePercentage / 100;
-    } else if (course.minAttendanceClasses && course.totalClassesInSemester) {
-      thresholdPercent = course.minAttendanceClasses / course.totalClassesInSemester;
+    if (course.minAttendanceClasses) {
+      // Direct minimum classes (e.g., 7 classes)
+      minRequired = course.minAttendanceClasses;
+    } else if (course.minAttendancePercentage && course.totalClassesInSemester) {
+      // Calculate from percentage (e.g., 50% of 14 = 7)
+      minRequired = Math.ceil((course.minAttendancePercentage / 100) * course.totalClassesInSemester);
     } else {
-      thresholdPercent = 0.75; // Default 75%
+      // Fallback: 75% of total
+      const total = course.totalClassesInSemester || course.totalClasses;
+      minRequired = Math.ceil(0.75 * total);
     }
     
-    const needed = Math.ceil(
-      (thresholdPercent * total - course.attendedClasses) / (1 - thresholdPercent)
-    );
-    
-    // If totalClassesInSemester is set, cap to remaining classes
-    if (course.totalClassesInSemester) {
-      const remainingClasses = Math.max(0, course.totalClassesInSemester - course.totalClasses);
-      if (needed > remainingClasses) {
-        return remainingClasses;
-      }
-    }
+    // How many more do we need? Simple subtraction!
+    const needed = minRequired - course.attendedClasses;
     
     return Math.max(0, needed);
   };
