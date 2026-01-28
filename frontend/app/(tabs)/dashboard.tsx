@@ -180,17 +180,20 @@ export default function Dashboard() {
                 }
               </Text>
               <Text style={styles.statLabel}>
-                {course.totalClassesInSemester ? `of ${course.totalClassesInSemester} total` : 'Classes Marked'}
+                {course.totalClassesInSemester 
+                  ? t('ofTotal', { total: course.totalClassesInSemester })
+                  : t('classesMarked')
+                }
               </Text>
             </View>
             <View style={styles.statItem}>
               <Text style={styles.statValue}>
                 {course.minAttendancePercentage 
                   ? `${course.minAttendancePercentage}%`
-                  : `${course.minAttendanceClasses} classes`
+                  : `${course.minAttendanceClasses} ${t('classes')}`
                 }
               </Text>
-              <Text style={styles.statLabel}>Required</Text>
+              <Text style={styles.statLabel}>{t('required')}</Text>
             </View>
           </View>
 
@@ -200,14 +203,17 @@ export default function Dashboard() {
                 <View style={styles.warningBox}>
                   <Ionicons name="checkmark-circle" size={16} color="#34C759" />
                   <Text style={styles.warningText}>
-                    You have met the minimum presence requirement ✓
+                    {t('metRequirement')}
                   </Text>
                 </View>
               ) : (
                 <View style={styles.warningBox}>
                   <Ionicons name="warning" size={16} color="#FF3B30" />
                   <Text style={[styles.warningText, { color: '#FF3B30' }]}>
-                    You need to attend {needed} more {needed === 1 ? 'class' : 'classes'} to meet the minimum requirement
+                    {t('needToAttend', { 
+                      count: needed, 
+                      classWord: needed === 1 ? t('classWord') : t('classesWord') 
+                    })}
                   </Text>
                 </View>
               )}
@@ -220,14 +226,14 @@ export default function Dashboard() {
               onPress={() => router.push(`/mark-attendance?courseId=${course.id}`)}
             >
               <Ionicons name="add-circle" size={20} color="#4A90E2" />
-              <Text style={styles.actionButtonText}>Mark</Text>
+              <Text style={styles.actionButtonText}>{t('mark')}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.actionButton}
               onPress={() => router.push(`/bulk-attendance?courseId=${course.id}`)}
             >
               <Ionicons name="calendar" size={20} color="#9B59B6" />
-              <Text style={styles.actionButtonText}>Bulk Add</Text>
+              <Text style={styles.actionButtonText}>{t('bulkAdd')}</Text>
             </TouchableOpacity>
           </View>
         </View>
