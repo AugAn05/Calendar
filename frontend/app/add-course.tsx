@@ -96,11 +96,19 @@ export default function AddCourse() {
         name: name.trim(),
         type,
         schedule,
-        minAttendancePercentage: parseFloat(minAttendance),
         color: selectedColor,
       };
       
-      // Only include totalClassesInSemester if it has a value
+      // Add attendance requirements
+      if (minAttendance && minAttendance.trim() !== '') {
+        bodyData.minAttendancePercentage = parseFloat(minAttendance);
+      }
+      
+      if (minAttendanceClasses && minAttendanceClasses.trim() !== '') {
+        bodyData.minAttendanceClasses = parseInt(minAttendanceClasses);
+      }
+      
+      // Add total classes if provided
       if (totalClassesInSemester && totalClassesInSemester.trim() !== '') {
         bodyData.totalClassesInSemester = parseInt(totalClassesInSemester);
       }
