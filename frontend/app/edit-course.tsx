@@ -50,6 +50,9 @@ export default function EditCourse() {
       setMinAttendance(data.minAttendancePercentage.toString());
       setSelectedColor(data.color);
       setSchedule(data.schedule);
+      if (data.totalClassesInSemester) {
+        setTotalClassesInSemester(data.totalClassesInSemester.toString());
+      }
     } catch (error) {
       Alert.alert('Error', 'Failed to load course');
       router.back();
