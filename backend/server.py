@@ -68,6 +68,7 @@ class CourseUpdate(BaseModel):
     schedule: Optional[List[ScheduleSlot]] = None
     minAttendancePercentage: Optional[float] = None
     color: Optional[str] = None
+    totalClassesInSemester: Optional[int] = None
 
 class AttendanceCreate(BaseModel):
     courseId: str
