@@ -244,7 +244,7 @@ export default function Dashboard() {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Dashboard</Text>
+        <Text style={styles.headerTitle}>{t('dashboard')}</Text>
         <TouchableOpacity
           style={styles.addButton}
           onPress={() => router.push('/add-course')}
@@ -263,8 +263,8 @@ export default function Dashboard() {
         {courses.length === 0 ? (
           <View style={styles.emptyState}>
             <Ionicons name="book-outline" size={64} color="#8E8E93" />
-            <Text style={styles.emptyStateText}>No courses yet</Text>
-            <Text style={styles.emptyStateSubtext}>Tap + to add your first course</Text>
+            <Text style={styles.emptyStateText}>{t('noCourses')}</Text>
+            <Text style={styles.emptyStateSubtext}>{t('tapToAdd')}</Text>
           </View>
         ) : (
           courses.map(renderCourseCard)
