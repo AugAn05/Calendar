@@ -59,13 +59,13 @@ export default function BulkAttendance() {
 
     setIsSubmitting(true);
     try {
-      // Generate attendance list - all presences going backwards from today
+      // Generate attendance list - all presences going backwards from YESTERDAY (not today)
       const today = new Date();
       const attendanceList = [];
       
-      for (let i = numberOfPresences - 1; i >= 0; i--) {
+      for (let i = 1; i <= numberOfPresences; i++) {
         const date = new Date(today);
-        date.setDate(date.getDate() - (i * 7)); // One week intervals
+        date.setDate(date.getDate() - (i * 7)); // Start from 1 week ago, then 2 weeks ago, etc.
         attendanceList.push({
           date: date.toISOString().split('T')[0],
           status: 'present',
