@@ -80,7 +80,8 @@ export default function Absences() {
   const getMonthLabel = (monthKey: string) => {
     const [year, month] = monthKey.split('-');
     const date = new Date(parseInt(year), parseInt(month) - 1);
-    return date.toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+    const locale = language === 'ro' ? 'ro-RO' : 'en-US';
+    return date.toLocaleDateString(locale, { month: 'long', year: 'numeric' });
   };
 
   const groupedAbsences = groupAbsencesByMonth();
