@@ -206,15 +206,28 @@ export default function AddCourse() {
               </TouchableOpacity>
             </View>
 
-            <Text style={styles.label}>Minimum Attendance (%)</Text>
+            <Text style={styles.label}>Minimum Attendance (%) - Optional</Text>
             <TextInput
               style={styles.input}
               value={minAttendance}
               onChangeText={setMinAttendance}
-              placeholder="75"
+              placeholder="e.g., 75"
               placeholderTextColor="#8E8E93"
               keyboardType="numeric"
             />
+
+            <Text style={styles.label}>Minimum Classes Needed - Optional</Text>
+            <TextInput
+              style={styles.input}
+              value={minAttendanceClasses}
+              onChangeText={setMinAttendanceClasses}
+              placeholder="e.g., 20"
+              placeholderTextColor="#8E8E93"
+              keyboardType="numeric"
+            />
+            <Text style={styles.helpText}>
+              * At least one attendance requirement is required
+            </Text>
 
             <Text style={styles.label}>Total Classes in Semester (Optional)</Text>
             <TextInput
