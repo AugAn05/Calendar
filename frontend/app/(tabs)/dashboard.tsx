@@ -193,14 +193,14 @@ export default function Dashboard() {
                 <View style={styles.warningBox}>
                   <Ionicons name="checkmark-circle" size={16} color="#34C759" />
                   <Text style={styles.warningText}>
-                    You can miss {canMiss} more {canMiss === 1 ? 'class' : 'classes'}
+                    You have met the minimum presence requirement ✓
                   </Text>
                 </View>
               ) : (
                 <View style={styles.warningBox}>
                   <Ionicons name="warning" size={16} color="#FF3B30" />
                   <Text style={[styles.warningText, { color: '#FF3B30' }]}>
-                    Attend next {needed} {needed === 1 ? 'class' : 'classes'} to reach threshold
+                    You need to attend {needed} more {needed === 1 ? 'class' : 'classes'} to meet the minimum requirement
                   </Text>
                 </View>
               )}
