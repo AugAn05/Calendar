@@ -54,11 +54,32 @@ export default function AddCourse() {
       Alert.alert('Error', 'Please enter a course name');
       return false;
     }
-    const attendance = parseFloat(minAttendance);
-    if (isNaN(attendance) || attendance < 0 || attendance > 100) {
-      Alert.alert('Error', 'Minimum attendance must be between 0 and 100');
+    
+    // At least one attendance requirement must be filled
+    const hasPercentage = minAttendance && minAttendance.trim() !== '';
+    const hasMinClasses = minAttendanceClasses && minAttendanceClasses.trim() !== '';
+    
+    if (!hasPercentage && !hasMinClasses) {
+      Alert.alert('Error', 'Please enter either minimum attendance percentage OR minimum classes needed');
       return false;
     }
+    
+    if (hasPercentage) {
+      const attendance = parseFloat(minAttendance);
+      if (isNaN(attendance) || attendance < 0 || attendance > 100) {
+        Alert.alert('Error', 'Minimum attendance percentage must be between 0 and 100');
+        return false;
+      }
+    }
+    
+    if (hasMinClasses) {
+      const minClasses = parseInt(minAttendanceClasses);
+      if (isNaN(minClasses) || minClasses < 0) {
+        Alert.alert('Error', 'Minimum classes must be a positive number');
+        return false;
+      }
+    }
+    
     if (schedule.length === 0) {
       Alert.alert('Error', 'Please add at least one schedule slot');
       return false;
