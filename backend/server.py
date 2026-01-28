@@ -180,6 +180,57 @@ async def create_attendance(attendance: AttendanceCreate):
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+@api_router.post("/attendance/bulk")
+async def create_bulk_attendance(courseId: str, startDate: str, endDate: str, attendanceList: list):
+    """
+    Bulk create attendance records
+    attendanceList format: [{"date": "2025-01-15", "status": "present"}, ...]
+    """
+    try:
+        created_count = 0
+        skipped_count = 0
+        
+        for item in attendanceList:
+            # Check if attendance already exists
+            existing = await db.attendance.find_one({
+                "courseId": ObjectId(courseId),
+                "date": item["date"]
+            })
+            
+            if existing:
+                skipped_count += 1
+                continue
+            
+            # Create attendance record
+            attendance_dict = {
+                "courseId": ObjectId(courseId),
+                "date": item["date"],
+                "status": item["status"],
+                "notes": item.get("notes", "")
+            }
+            
+            await db.attendance.insert_one(attendance_dict)
+            
+            # Update course statistics
+            update_query = {"$inc": {"totalClasses": 1}}
+            if item["status"] == "present":
+                update_query["$inc"]["attendedClasses"] = 1
+            
+            await db.courses.update_one(
+                {"_id": ObjectId(courseId)},
+                update_query
+            )
+            
+            created_count += 1
+        
+        return {
+            "message": f"Bulk attendance created successfully",
+            "created": created_count,
+            "skipped": skipped_count
+        }
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
 @api_router.get("/attendance/course/{course_id}")
 async def get_course_attendance(course_id: str):
     try:
