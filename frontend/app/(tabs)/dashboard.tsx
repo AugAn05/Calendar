@@ -145,7 +145,19 @@ export default function Dashboard() {
     const statusColor = getStatusColor(course);
     const canMiss = getClassesCanMiss(course);
     const needed = getClassesNeeded(course);
-    const isAboveThreshold = parseFloat(attendance) >= course.minAttendancePercentage;
+    
+    // Determine if above threshold - handle both percentage and min classes
+    let isAboveThreshold = false;
+    if (course.minAttendancePercentage) {
+      // Using percentage threshold
+      isAboveThreshold = parseFloat(attendance) >= course.minAttendancePercentage;
+    } else if (course.minAttendanceClasses) {
+      // Using minimum classes threshold
+      isAboveThreshold = course.attendedClasses >= course.minAttendanceClasses;
+    } else {
+      // Default fallback
+      isAboveThreshold = parseFloat(attendance) >= 75;
+    }
 
     return (
       <View
