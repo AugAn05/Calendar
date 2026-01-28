@@ -303,6 +303,27 @@ const styles = StyleSheet.create({
     marginLeft: 8,
     flex: 1,
   },
+  actionButtons: {
+    flexDirection: 'row',
+    marginTop: 12,
+    gap: 8,
+  },
+  actionButton: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#2C2C2E',
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    gap: 6,
+  },
+  actionButtonText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: '#FFFFFF',
+  },
   emptyState: {
     alignItems: 'center',
     justifyContent: 'center',
