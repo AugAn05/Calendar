@@ -22,39 +22,16 @@ interface Course {
   color: string;
 }
 
-interface AttendanceItem {
-  date: string;
-  status: 'present' | 'absent';
-}
-
 export default function BulkAttendance() {
   const { courseId } = useLocalSearchParams();
   const [loading, setLoading] = useState(true);
   const [course, setCourse] = useState<Course | null>(null);
-  const [numberOfClasses, setNumberOfClasses] = useState(10);
-  const [attendanceList, setAttendanceList] = useState<AttendanceItem[]>([]);
+  const [numberOfPresences, setNumberOfPresences] = useState<number | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     fetchCourse();
   }, []);
-
-  useEffect(() => {
-    // Generate attendance list based on number of classes
-    const today = new Date();
-    const list: AttendanceItem[] = [];
-    
-    for (let i = numberOfClasses - 1; i >= 0; i--) {
-      const date = new Date(today);
-      date.setDate(date.getDate() - (i * 7)); // One week intervals
-      list.push({
-        date: date.toISOString().split('T')[0],
-        status: 'present',
-      });
-    }
-    
-    setAttendanceList(list);
-  }, [numberOfClasses]);
 
   const fetchCourse = async () => {
     try {
@@ -69,15 +46,31 @@ export default function BulkAttendance() {
     }
   };
 
-  const toggleStatus = (index: number) => {
-    const newList = [...attendanceList];
-    newList[index].status = newList[index].status === 'present' ? 'absent' : 'present';
-    setAttendanceList(newList);
-  };
-
   const handleSubmit = async () => {
+    if (!numberOfPresences) {
+      if (Platform.OS === 'web') {
+        alert('Please select number of presences to add');
+      } else {
+        Alert.alert('Error', 'Please select number of presences to add');
+      }
+      return;
+    }
+
     setIsSubmitting(true);
     try {
+      // Generate attendance list - all presences going backwards from today
+      const today = new Date();
+      const attendanceList = [];
+      
+      for (let i = numberOfPresences - 1; i >= 0; i--) {
+        const date = new Date(today);
+        date.setDate(date.getDate() - (i * 7)); // One week intervals
+        attendanceList.push({
+          date: date.toISOString().split('T')[0],
+          status: 'present',
+        });
+      }
+
       const response = await fetch(`${API_URL}/attendance/bulk`, {
         method: 'POST',
         headers: {
@@ -92,37 +85,28 @@ export default function BulkAttendance() {
       if (response.ok) {
         const result = await response.json();
         if (Platform.OS === 'web') {
-          alert(`Success! Created ${result.created} records, skipped ${result.skipped} duplicates`);
+          alert(`Success! Added ${result.created} presences (skipped ${result.skipped} duplicates)`);
         } else {
-          Alert.alert('Success', `Created ${result.created} records, skipped ${result.skipped} duplicates`);
+          Alert.alert('Success', `Added ${result.created} presences (skipped ${result.skipped} duplicates)`);
         }
         router.back();
       } else {
         const error = await response.json();
         if (Platform.OS === 'web') {
-          alert(error.detail || 'Failed to create bulk attendance');
+          alert(error.detail || 'Failed to add bulk presences');
         } else {
-          Alert.alert('Error', error.detail || 'Failed to create bulk attendance');
+          Alert.alert('Error', error.detail || 'Failed to add bulk presences');
         }
       }
     } catch (error) {
       if (Platform.OS === 'web') {
-        alert('Failed to create bulk attendance');
+        alert('Failed to add bulk presences');
       } else {
-        Alert.alert('Error', 'Failed to create bulk attendance');
+        Alert.alert('Error', 'Failed to add bulk presences');
       }
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-    });
   };
 
   if (loading) {
@@ -145,7 +129,7 @@ export default function BulkAttendance() {
         <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>
           <Ionicons name="close" size={28} color="#FFFFFF" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Bulk Attendance</Text>
+        <Text style={styles.headerTitle}>Add Past Presences</Text>
         <View style={{ width: 36 }} />
       </View>
 
@@ -155,90 +139,70 @@ export default function BulkAttendance() {
           <Text style={styles.courseType}>{course.type}</Text>
         </View>
 
+        <View style={styles.infoBox}>
+          <Ionicons name="information-circle" size={24} color="#4A90E2" />
+          <Text style={styles.infoText}>
+            Quickly add multiple past presences at once. Perfect for students who installed the app mid-semester!
+          </Text>
+        </View>
+
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Number of Past Classes</Text>
-          <View style={styles.numberButtons}>
-            {[5, 10, 15, 20].map((num) => (
+          <Text style={styles.sectionTitle}>How many classes did you attend?</Text>
+          <Text style={styles.helpText}>
+            Select the number of past classes you were present for
+          </Text>
+
+          <View style={styles.optionsGrid}>
+            {[5, 10, 15, 20, 25, 30].map((num) => (
               <TouchableOpacity
                 key={num}
                 style={[
-                  styles.numberButton,
-                  numberOfClasses === num && styles.numberButtonActive,
+                  styles.optionCard,
+                  numberOfPresences === num && styles.optionCardActive,
                 ]}
-                onPress={() => setNumberOfClasses(num)}
+                onPress={() => setNumberOfPresences(num)}
               >
                 <Text
                   style={[
-                    styles.numberButtonText,
-                    numberOfClasses === num && styles.numberButtonTextActive,
+                    styles.optionNumber,
+                    numberOfPresences === num && styles.optionNumberActive,
                   ]}
                 >
                   {num}
                 </Text>
+                <Text
+                  style={[
+                    styles.optionLabel,
+                    numberOfPresences === num && styles.optionLabelActive,
+                  ]}
+                >
+                  classes
+                </Text>
               </TouchableOpacity>
             ))}
           </View>
-          <Text style={styles.helpText}>
-            Select how many past classes to add (one per week)
-          </Text>
         </View>
 
-        <View style={styles.section}>
-          <Text style={styles.sectionTitle}>Mark Attendance</Text>
-          <Text style={styles.helpText}>
-            Tap any class to toggle between Present and Absent
-          </Text>
-
-          {attendanceList.map((item, index) => (
-            <TouchableOpacity
-              key={index}
-              style={[
-                styles.attendanceItem,
-                item.status === 'present' ? styles.presentItem : styles.absentItem,
-              ]}
-              onPress={() => toggleStatus(index)}
-            >
-              <View style={styles.attendanceItemLeft}>
-                <Ionicons
-                  name={item.status === 'present' ? 'checkmark-circle' : 'close-circle'}
-                  size={24}
-                  color={item.status === 'present' ? '#34C759' : '#FF3B30'}
-                />
-                <View style={styles.attendanceItemInfo}>
-                  <Text style={styles.attendanceDate}>{formatDate(item.date)}</Text>
-                  <Text style={styles.attendanceWeekAgo}>
-                    {numberOfClasses - index - 1 === 0
-                      ? 'This week'
-                      : `${numberOfClasses - index - 1} ${numberOfClasses - index - 1 === 1 ? 'week' : 'weeks'} ago`}
-                  </Text>
-                </View>
-              </View>
-              <View
-                style={[
-                  styles.statusBadge,
-                  item.status === 'present' ? styles.presentBadge : styles.absentBadge,
-                ]}
-              >
-                <Text
-                  style={[
-                    styles.statusText,
-                    item.status === 'present' ? styles.presentText : styles.absentText,
-                  ]}
-                >
-                  {item.status}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </View>
+        {numberOfPresences && (
+          <View style={styles.summaryBox}>
+            <Ionicons name="checkmark-circle" size={24} color="#34C759" />
+            <Text style={styles.summaryText}>
+              Will add <Text style={styles.summaryBold}>{numberOfPresences} presences</Text> going back {Math.ceil(numberOfPresences / 4)} months (weekly intervals)
+            </Text>
+          </View>
+        )}
 
         <TouchableOpacity
-          style={[styles.submitButton, isSubmitting && styles.submitButtonDisabled]}
+          style={[
+            styles.submitButton,
+            (!numberOfPresences || isSubmitting) && styles.submitButtonDisabled,
+          ]}
           onPress={handleSubmit}
-          disabled={isSubmitting}
+          disabled={!numberOfPresences || isSubmitting}
         >
+          <Ionicons name="add-circle" size={24} color="#FFFFFF" />
           <Text style={styles.submitButtonText}>
-            {isSubmitting ? 'Submitting...' : `Add ${numberOfClasses} Records`}
+            {isSubmitting ? 'Adding...' : `Add ${numberOfPresences || 0} Presences`}
           </Text>
         </TouchableOpacity>
       </ScrollView>
@@ -282,7 +246,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#1C1C1E',
     borderRadius: 12,
     padding: 16,
-    marginBottom: 24,
+    marginBottom: 16,
     borderLeftWidth: 4,
   },
   courseName: {
@@ -296,108 +260,97 @@ const styles = StyleSheet.create({
     color: '#8E8E93',
     textTransform: 'capitalize',
   },
+  infoBox: {
+    flexDirection: 'row',
+    backgroundColor: '#1C1C1E',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 24,
+    gap: 12,
+  },
+  infoText: {
+    flex: 1,
+    fontSize: 14,
+    color: '#8E8E93',
+    lineHeight: 20,
+  },
   section: {
     marginBottom: 24,
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '600',
     color: '#FFFFFF',
-    marginBottom: 12,
-  },
-  numberButtons: {
-    flexDirection: 'row',
-    gap: 12,
     marginBottom: 8,
-  },
-  numberButton: {
-    flex: 1,
-    padding: 16,
-    backgroundColor: '#1C1C1E',
-    borderRadius: 12,
-    alignItems: 'center',
-  },
-  numberButtonActive: {
-    backgroundColor: '#4A90E2',
-  },
-  numberButtonText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: '#8E8E93',
-  },
-  numberButtonTextActive: {
-    color: '#FFFFFF',
   },
   helpText: {
+    fontSize: 14,
+    color: '#8E8E93',
+    marginBottom: 16,
+  },
+  optionsGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  optionCard: {
+    width: '30%',
+    aspectRatio: 1,
+    backgroundColor: '#1C1C1E',
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#2C2C2E',
+  },
+  optionCardActive: {
+    backgroundColor: '#4A90E2',
+    borderColor: '#4A90E2',
+  },
+  optionNumber: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginBottom: 4,
+  },
+  optionNumberActive: {
+    color: '#FFFFFF',
+  },
+  optionLabel: {
     fontSize: 12,
     color: '#8E8E93',
-    marginTop: 4,
-    fontStyle: 'italic',
   },
-  attendanceItem: {
+  optionLabelActive: {
+    color: '#FFFFFF',
+  },
+  summaryBox: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    backgroundColor: '#1C1C1E',
     padding: 16,
     borderRadius: 12,
-    marginBottom: 8,
-  },
-  presentItem: {
-    backgroundColor: '#1C1C1E',
+    marginBottom: 16,
+    gap: 12,
     borderWidth: 1,
     borderColor: '#34C759',
   },
-  absentItem: {
-    backgroundColor: '#1C1C1E',
-    borderWidth: 1,
-    borderColor: '#FF3B30',
-  },
-  attendanceItemLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  summaryText: {
     flex: 1,
-  },
-  attendanceItemInfo: {
-    marginLeft: 12,
-  },
-  attendanceDate: {
-    fontSize: 16,
-    fontWeight: '500',
+    fontSize: 14,
     color: '#FFFFFF',
+    lineHeight: 20,
   },
-  attendanceWeekAgo: {
-    fontSize: 12,
-    color: '#8E8E93',
-    marginTop: 2,
-  },
-  statusBadge: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 12,
-  },
-  presentBadge: {
-    backgroundColor: '#34C759',
-  },
-  absentBadge: {
-    backgroundColor: '#FF3B30',
-  },
-  statusText: {
-    fontSize: 12,
+  summaryBold: {
     fontWeight: '600',
-    textTransform: 'capitalize',
-  },
-  presentText: {
-    color: '#FFFFFF',
-  },
-  absentText: {
-    color: '#FFFFFF',
+    color: '#34C759',
   },
   submitButton: {
+    flexDirection: 'row',
     backgroundColor: '#4A90E2',
     borderRadius: 12,
-    padding: 16,
+    padding: 18,
     alignItems: 'center',
-    marginTop: 8,
+    justifyContent: 'center',
+    gap: 8,
     marginBottom: 24,
   },
   submitButtonDisabled: {
