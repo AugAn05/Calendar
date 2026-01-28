@@ -85,14 +85,26 @@ export default function MarkAttendance() {
       });
 
       if (response.ok) {
-        Alert.alert('Success', 'Attendance marked successfully');
+        if (Platform.OS === 'web') {
+          alert('Attendance marked successfully');
+        } else {
+          Alert.alert('Success', 'Attendance marked successfully');
+        }
         router.back();
       } else {
         const error = await response.json();
-        Alert.alert('Error', error.detail || 'Failed to mark attendance');
+        if (Platform.OS === 'web') {
+          alert(error.detail || 'Failed to mark attendance');
+        } else {
+          Alert.alert('Error', error.detail || 'Failed to mark attendance');
+        }
       }
     } catch (error) {
-      Alert.alert('Error', 'Failed to mark attendance');
+      if (Platform.OS === 'web') {
+        alert('Failed to mark attendance');
+      } else {
+        Alert.alert('Error', 'Failed to mark attendance');
+      }
     } finally {
       setIsSubmitting(false);
     }
