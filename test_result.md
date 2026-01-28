@@ -250,7 +250,101 @@ backend:
           comment: "✅ Error handling working correctly. Proper validation for invalid IDs (400), missing fields (422), and non-existent records (404)."
 
 frontend:
-  # Frontend testing not performed as per testing agent instructions
+  - task: "Dashboard - Course Overview Display"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/app/(tabs)/dashboard.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented dashboard with course cards showing attendance percentage, stats, and warnings. Displays current attendance, required percentage, classes can miss or need to attend. Has pull-to-refresh functionality."
+
+  - task: "Courses Management Screen"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/app/(tabs)/courses.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented courses screen with list of all courses, edit/delete functionality, schedule display, and attendance statistics."
+
+  - task: "Add Course Screen"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/app/add-course.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented add course screen with course name, type (course/seminar), schedule slots, minimum attendance percentage, and color picker."
+
+  - task: "Edit Course Screen"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/app/edit-course.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented edit course screen with ability to modify all course details including schedule."
+
+  - task: "Mark Attendance Screen"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/app/mark-attendance.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented attendance marking screen with date selection, present/absent status, optional notes, and recent attendance history display."
+
+  - task: "Absences List Screen"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/app/(tabs)/absences.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented absences screen showing all absence records grouped by month with course name, date, and notes."
+
+  - task: "Tab Navigation"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/app/(tabs)/_layout.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented tab navigation with Dashboard, Courses, and Absences tabs using expo-router."
+
+  - task: "Attendance Calculation Logic"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/app/(tabs)/dashboard.tsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "Implemented attendance calculation showing current percentage, classes can miss before reaching threshold, and classes needed to reach threshold if below."
 
 metadata:
   created_by: "testing_agent"
