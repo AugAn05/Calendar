@@ -10,6 +10,7 @@ export default function RootLayout() {
         <Stack.Screen name="add-course" options={{ presentation: 'modal' }} />
         <Stack.Screen name="edit-course" options={{ presentation: 'modal' }} />
         <Stack.Screen name="mark-attendance" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="bulk-attendance" options={{ presentation: 'modal' }} />
       </Stack>
     </>
   );
