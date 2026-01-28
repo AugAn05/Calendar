@@ -35,6 +35,7 @@ def course_helper(course) -> dict:
         "totalClasses": course["totalClasses"],
         "attendedClasses": course["attendedClasses"],
         "color": course.get("color", "#4A90E2"),
+        "totalClassesInSemester": course.get("totalClassesInSemester"),
         "createdAt": course.get("createdAt", datetime.utcnow().isoformat())
     }
 
