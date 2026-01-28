@@ -59,6 +59,7 @@ class CourseCreate(BaseModel):
     schedule: List[ScheduleSlot]
     minAttendancePercentage: float
     color: Optional[str] = "#4A90E2"
+    totalClassesInSemester: Optional[int] = None  # Optional: total classes expected in semester
 
 class CourseUpdate(BaseModel):
     name: Optional[str] = None
