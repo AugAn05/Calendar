@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: "University Calendar Backend API Testing - Test all backend endpoints for course management and attendance tracking"
+user_problem_statement: "Build a University Calendar app for tracking course absences and attendance percentages with notifications when at attendance limit"
 
 backend:
   - task: "POST /api/courses - Create Course"
