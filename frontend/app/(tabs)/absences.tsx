@@ -90,7 +90,7 @@ export default function Absences() {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Absences</Text>
+        <Text style={styles.headerTitle}>{t('absences')}</Text>
         <View style={styles.countBadge}>
           <Text style={styles.countText}>{absences.length}</Text>
         </View>
@@ -106,8 +106,8 @@ export default function Absences() {
         {absences.length === 0 ? (
           <View style={styles.emptyState}>
             <Ionicons name="checkmark-circle-outline" size={64} color="#34C759" />
-            <Text style={styles.emptyStateText}>No absences recorded</Text>
-            <Text style={styles.emptyStateSubtext}>Keep up the good attendance!</Text>
+            <Text style={styles.emptyStateText}>{t('noAbsences')}</Text>
+            <Text style={styles.emptyStateSubtext}>{t('keepUp')}</Text>
           </View>
         ) : (
           monthKeys.map((monthKey) => (
