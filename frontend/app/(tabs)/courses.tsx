@@ -173,14 +173,24 @@ export default function Courses() {
               <Text style={styles.statLabel}>Current</Text>
             </View>
             <View style={styles.statBox}>
-              <Text style={styles.statValue}>{course.minAttendancePercentage}%</Text>
+              <Text style={styles.statValue}>
+                {course.minAttendancePercentage 
+                  ? `${course.minAttendancePercentage}%`
+                  : `${course.minAttendanceClasses}`
+                }
+              </Text>
               <Text style={styles.statLabel}>Required</Text>
             </View>
             <View style={styles.statBox}>
               <Text style={styles.statValue}>
-                {course.attendedClasses}/{course.totalClasses}
+                {course.totalClassesInSemester 
+                  ? `${course.attendedClasses}/${course.totalClassesInSemester}`
+                  : `${course.attendedClasses}/${course.totalClasses}`
+                }
               </Text>
-              <Text style={styles.statLabel}>Classes</Text>
+              <Text style={styles.statLabel}>
+                {course.totalClassesInSemester ? 'Progress' : 'Classes'}
+              </Text>
             </View>
           </View>
         </View>
