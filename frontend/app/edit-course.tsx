@@ -223,6 +223,19 @@ export default function EditCourse() {
               keyboardType="numeric"
             />
 
+            <Text style={styles.label}>Total Classes in Semester (Optional)</Text>
+            <TextInput
+              style={styles.input}
+              value={totalClassesInSemester}
+              onChangeText={setTotalClassesInSemester}
+              placeholder="e.g., 30"
+              placeholderTextColor="#8E8E93"
+              keyboardType="numeric"
+            />
+            <Text style={styles.helpText}>
+              Set this if you know how many classes total in the semester
+            </Text>
+
             <Text style={styles.label}>Color</Text>
             <View style={styles.colorPicker}>
               {COLORS.map((color) => (
