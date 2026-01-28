@@ -23,6 +23,7 @@ interface Absence {
 }
 
 export default function Absences() {
+  const { t, language } = useLanguage();
   const [absences, setAbsences] = useState<Absence[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
