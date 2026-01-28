@@ -301,8 +301,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   actionButton: {
-    padding: 8,
+    padding: 12,
     marginLeft: 8,
+    minWidth: 44,
+    minHeight: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
+    cursor: 'pointer',
   },
   detailRow: {
     flexDirection: 'row',
