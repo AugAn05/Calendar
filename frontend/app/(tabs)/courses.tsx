@@ -22,9 +22,11 @@ interface Course {
   type: string;
   schedule: Array<{ day: string; startTime: string; endTime: string }>;
   minAttendancePercentage: number;
+  minAttendanceClasses: number;
   totalClasses: number;
   attendedClasses: number;
   color: string;
+  totalClassesInSemester: number;
 }
 
 export default function Courses() {
