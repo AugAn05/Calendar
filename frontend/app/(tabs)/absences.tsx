@@ -54,13 +54,14 @@ export default function Absences() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
+    const locale = language === 'ro' ? 'ro-RO' : 'en-US';
     const options: Intl.DateTimeFormatOptions = {
       weekday: 'short',
       year: 'numeric',
       month: 'short',
       day: 'numeric',
     };
-    return date.toLocaleDateString('en-US', options);
+    return date.toLocaleDateString(locale, options);
   };
 
   const groupAbsencesByMonth = () => {
