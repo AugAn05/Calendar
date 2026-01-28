@@ -149,13 +149,21 @@ export default function Courses() {
             <View style={styles.courseActions}>
               <TouchableOpacity
                 style={styles.actionButton}
-                onPress={() => router.push(`/edit-course?courseId=${course.id}`)}
+                onPress={() => {
+                  console.log('Edit button clicked');
+                  router.push(`/edit-course?courseId=${course.id}`);
+                }}
               >
                 <Ionicons name="create-outline" size={24} color="#4A90E2" />
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.actionButton}
-                onPress={() => handleDelete(course)}
+                onPress={(e) => {
+                  console.log('Trash button clicked for course:', course.name);
+                  e.stopPropagation();
+                  handleDelete(course);
+                }}
+                activeOpacity={0.7}
               >
                 <Ionicons name="trash-outline" size={24} color="#FF3B30" />
               </TouchableOpacity>
