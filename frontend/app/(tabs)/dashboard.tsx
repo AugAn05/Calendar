@@ -20,9 +20,11 @@ interface Course {
   name: string;
   type: string;
   minAttendancePercentage: number;
+  minAttendanceClasses: number;
   totalClasses: number;
   attendedClasses: number;
   color: string;
+  totalClassesInSemester: number;
 }
 
 export default function Dashboard() {
