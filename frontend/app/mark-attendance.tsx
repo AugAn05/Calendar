@@ -70,6 +70,7 @@ export default function MarkAttendance() {
   const handleSubmit = async () => {
     setIsSubmitting(true);
     try {
+      const dateString = selectedDate.toISOString().split('T')[0];
       const response = await fetch(`${API_URL}/attendance`, {
         method: 'POST',
         headers: {
@@ -77,7 +78,7 @@ export default function MarkAttendance() {
         },
         body: JSON.stringify({
           courseId,
-          date: selectedDate,
+          date: dateString,
           status,
           notes: notes.trim(),
         }),
@@ -95,6 +96,22 @@ export default function MarkAttendance() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const onDateChange = (event: any, selectedDate?: Date) => {
+    setShowDatePicker(Platform.OS === 'ios');
+    if (selectedDate) {
+      setSelectedDate(selectedDate);
+    }
+  };
+
+  const formatDateDisplay = (date: Date) => {
+    return date.toLocaleDateString('en-US', {
+      weekday: 'short',
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    });
   };
 
   const formatDate = (dateString: string) => {
