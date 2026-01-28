@@ -186,7 +186,7 @@ export default function Courses() {
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
       <View style={styles.header}>
-        <Text style={styles.headerTitle}>Courses</Text>
+        <Text style={styles.headerTitle}>{t('courses')}</Text>
         <TouchableOpacity
           style={styles.addButton}
           onPress={() => router.push('/add-course')}
@@ -205,8 +205,8 @@ export default function Courses() {
         {courses.length === 0 ? (
           <View style={styles.emptyState}>
             <Ionicons name="book-outline" size={64} color="#8E8E93" />
-            <Text style={styles.emptyStateText}>No courses yet</Text>
-            <Text style={styles.emptyStateSubtext}>Tap + to add your first course</Text>
+            <Text style={styles.emptyStateText}>{t('noCourses')}</Text>
+            <Text style={styles.emptyStateSubtext}>{t('tapToAdd')}</Text>
           </View>
         ) : (
           courses.map(renderCourseCard)
@@ -215,8 +215,8 @@ export default function Courses() {
 
       <ConfirmDialog
         visible={deleteDialogVisible}
-        title="Delete Course"
-        message={courseToDelete ? `Are you sure you want to delete "${courseToDelete.name}"? This will also delete all attendance records.` : ''}
+        title={t('deleteTitle')}
+        message={courseToDelete ? t('deleteMessage', { name: courseToDelete.name }) : ''}
         onConfirm={confirmDelete}
         onCancel={cancelDelete}
       />
