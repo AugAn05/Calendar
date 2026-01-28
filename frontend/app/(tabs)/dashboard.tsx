@@ -95,10 +95,9 @@ export default function Dashboard() {
     const isAboveThreshold = parseFloat(attendance) >= course.minAttendancePercentage;
 
     return (
-      <TouchableOpacity
+      <View
         key={course.id}
         style={styles.courseCard}
-        onPress={() => router.push(`/mark-attendance?courseId=${course.id}`)}
       >
         <View style={[styles.courseColorBar, { backgroundColor: course.color }]} />
         <View style={styles.courseCardContent}>
