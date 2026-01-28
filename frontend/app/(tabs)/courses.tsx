@@ -107,7 +107,7 @@ export default function Courses() {
   };
 
   const formatSchedule = (schedule: Array<{ day: string; startTime: string; endTime: string }>) => {
-    if (!schedule || schedule.length === 0) return 'No schedule set';
+    if (!schedule || schedule.length === 0) return t('noSchedule');
     return schedule
       .map((s) => `${s.day} ${s.startTime}-${s.endTime}`)
       .join(', ');
