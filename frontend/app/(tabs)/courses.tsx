@@ -208,6 +208,14 @@ export default function Courses() {
           courses.map(renderCourseCard)
         )}
       </ScrollView>
+
+      <ConfirmDialog
+        visible={deleteDialogVisible}
+        title="Delete Course"
+        message={courseToDelete ? `Are you sure you want to delete "${courseToDelete.name}"? This will also delete all attendance records.` : ''}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      />
     </SafeAreaView>
   );
 }
