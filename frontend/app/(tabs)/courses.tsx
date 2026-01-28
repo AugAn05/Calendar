@@ -35,6 +35,8 @@ export default function Courses() {
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+  const [deleteDialogVisible, setDeleteDialogVisible] = useState(false);
+  const [courseToDelete, setCourseToDelete] = useState<Course | null>(null);
 
   const fetchCourses = async () => {
     try {
