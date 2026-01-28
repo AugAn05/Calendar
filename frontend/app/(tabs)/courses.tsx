@@ -67,16 +67,22 @@ export default function Courses() {
           style: 'destructive',
           onPress: async () => {
             try {
+              console.log('Deleting course:', course.id);
               const response = await fetch(`${API_URL}/courses/${course.id}`, {
                 method: 'DELETE',
               });
+              console.log('Delete response status:', response.status);
               if (response.ok) {
+                Alert.alert('Success', 'Course deleted successfully');
                 fetchCourses();
               } else {
-                Alert.alert('Error', 'Failed to delete course');
+                const errorData = await response.json().catch(() => ({}));
+                console.error('Delete error:', errorData);
+                Alert.alert('Error', errorData.detail || 'Failed to delete course');
               }
             } catch (error) {
-              Alert.alert('Error', 'Failed to delete course');
+              console.error('Delete exception:', error);
+              Alert.alert('Error', 'Failed to delete course: ' + error.message);
             }
           },
         },
