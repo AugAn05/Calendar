@@ -149,38 +149,22 @@ export default function BulkAttendance() {
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>How many classes did you attend?</Text>
           <Text style={styles.helpText}>
-            Select the number of past classes you were present for
+            Enter the number of past classes you were present for
           </Text>
 
-          <View style={styles.optionsGrid}>
-            {[5, 10, 15, 20, 25, 30].map((num) => (
-              <TouchableOpacity
-                key={num}
-                style={[
-                  styles.optionCard,
-                  numberOfPresences === num && styles.optionCardActive,
-                ]}
-                onPress={() => setNumberOfPresences(num)}
-              >
-                <Text
-                  style={[
-                    styles.optionNumber,
-                    numberOfPresences === num && styles.optionNumberActive,
-                  ]}
-                >
-                  {num}
-                </Text>
-                <Text
-                  style={[
-                    styles.optionLabel,
-                    numberOfPresences === num && styles.optionLabelActive,
-                  ]}
-                >
-                  classes
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
+          <TextInput
+            style={styles.numberInput}
+            value={numberOfPresences ? numberOfPresences.toString() : ''}
+            onChangeText={(text) => {
+              const num = parseInt(text);
+              if (text === '' || (!isNaN(num) && num > 0 && num <= 100)) {
+                setNumberOfPresences(text === '' ? null : num);
+              }
+            }}
+            placeholder="e.g., 15"
+            placeholderTextColor="#8E8E93"
+            keyboardType="numeric"
+          />
         </View>
 
         {numberOfPresences && (
