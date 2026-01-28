@@ -395,6 +395,12 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     marginTop: 12,
   },
+  helpText: {
+    fontSize: 12,
+    color: '#8E8E93',
+    marginTop: 4,
+    fontStyle: 'italic',
+  },
   input: {
     backgroundColor: '#1C1C1E',
     borderRadius: 12,
