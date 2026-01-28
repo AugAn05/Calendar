@@ -33,6 +33,7 @@ interface Course {
 }
 
 export default function Courses() {
+  const { t } = useLanguage();
   const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
