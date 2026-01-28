@@ -146,6 +146,23 @@ export default function Dashboard() {
               )}
             </View>
           )}
+
+          <View style={styles.actionButtons}>
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={() => router.push(`/mark-attendance?courseId=${course.id}`)}
+            >
+              <Ionicons name="add-circle" size={20} color="#4A90E2" />
+              <Text style={styles.actionButtonText}>Mark</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={() => router.push(`/bulk-attendance?courseId=${course.id}`)}
+            >
+              <Ionicons name="calendar" size={20} color="#9B59B6" />
+              <Text style={styles.actionButtonText}>Bulk Add</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </TouchableOpacity>
     );
