@@ -1,105 +1,110 @@
 diff --git a/model.patch b/model.patch
-index bc8f443..e69de29 100644
+index 89914d9..e69de29 100644
 --- a/model.patch
 +++ b/model.patch
-@@ -1,100 +0,0 @@
--diff --git a/frontend/app/(tabs)/courses.tsx b/frontend/app/(tabs)/courses.tsx
--index dc87d60..da52ae5 100644
----- a/frontend/app/(tabs)/courses.tsx
--+++ b/frontend/app/(tabs)/courses.tsx
--@@ -208,6 +208,14 @@ export default function Courses() {
--           courses.map(renderCourseCard)
--         )}
--       </ScrollView>
--+
--+      <ConfirmDialog
--+        visible={deleteDialogVisible}
--+        title="Delete Course"
--+        message={courseToDelete ? `Are you sure you want to delete "${courseToDelete.name}"? This will also delete all attendance records.` : ''}
--+        onConfirm={confirmDelete}
--+        onCancel={cancelDelete}
--+      />
--     </SafeAreaView>
--   );
-- }
+@@ -1,105 +0,0 @@
 -diff --git a/model.patch b/model.patch
--index 595eec6..e69de29 100644
+-index bc8f443..e69de29 100644
 ---- a/model.patch
 -+++ b/model.patch
--@@ -1,76 +0,0 @@
+-@@ -1,100 +0,0 @@
+--diff --git a/frontend/app/(tabs)/courses.tsx b/frontend/app/(tabs)/courses.tsx
+--index dc87d60..da52ae5 100644
+----- a/frontend/app/(tabs)/courses.tsx
+--+++ b/frontend/app/(tabs)/courses.tsx
+--@@ -208,6 +208,14 @@ export default function Courses() {
+--           courses.map(renderCourseCard)
+--         )}
+--       </ScrollView>
+--+
+--+      <ConfirmDialog
+--+        visible={deleteDialogVisible}
+--+        title="Delete Course"
+--+        message={courseToDelete ? `Are you sure you want to delete "${courseToDelete.name}"? This will also delete all attendance records.` : ''}
+--+        onConfirm={confirmDelete}
+--+        onCancel={cancelDelete}
+--+      />
+--     </SafeAreaView>
+--   );
+-- }
 --diff --git a/model.patch b/model.patch
---index 1bd963c..e69de29 100644
+--index 595eec6..e69de29 100644
 ----- a/model.patch
 --+++ b/model.patch
---@@ -1,71 +0,0 @@
----diff --git a/frontend/app/(tabs)/dashboard.tsx b/frontend/app/(tabs)/dashboard.tsx
----index 4811763..ac904ab 100644
------- a/frontend/app/(tabs)/dashboard.tsx
----+++ b/frontend/app/(tabs)/dashboard.tsx
----@@ -95,10 +95,9 @@ export default function Dashboard() {
----     const isAboveThreshold = parseFloat(attendance) >= course.minAttendancePercentage;
---- 
----     return (
-----      <TouchableOpacity
----+      <View
----         key={course.id}
----         style={styles.courseCard}
-----        onPress={() => router.push(`/mark-attendance?courseId=${course.id}`)}
----       >
----         <View style={[styles.courseColorBar, { backgroundColor: course.color }]} />
----         <View style={styles.courseCardContent}>
----@@ -146,8 +145,25 @@ export default function Dashboard() {
----               )}
----             </View>
----           )}
----+
----+          <View style={styles.actionButtons}>
----+            <TouchableOpacity
----+              style={styles.actionButton}
----+              onPress={() => router.push(`/mark-attendance?courseId=${course.id}`)}
----+            >
----+              <Ionicons name="add-circle" size={20} color="#4A90E2" />
----+              <Text style={styles.actionButtonText}>Mark</Text>
----+            </TouchableOpacity>
----+            <TouchableOpacity
----+              style={styles.actionButton}
----+              onPress={() => router.push(`/bulk-attendance?courseId=${course.id}`)}
----+            >
----+              <Ionicons name="calendar" size={20} color="#9B59B6" />
----+              <Text style={styles.actionButtonText}>Bulk Add</Text>
----+            </TouchableOpacity>
----+          </View>
----         </View>
-----      </TouchableOpacity>
----+      </View>
----     );
----   };
---- 
----@@ -286,6 +302,27 @@ const styles = StyleSheet.create({
----     marginLeft: 8,
----     flex: 1,
----   },
----+  actionButtons: {
----+    flexDirection: 'row',
----+    marginTop: 12,
----+    gap: 8,
----+  },
----+  actionButton: {
----+    flex: 1,
----+    flexDirection: 'row',
----+    alignItems: 'center',
----+    justifyContent: 'center',
----+    backgroundColor: '#2C2C2E',
----+    paddingVertical: 10,
----+    paddingHorizontal: 12,
----+    borderRadius: 8,
----+    gap: 6,
----+  },
----+  actionButtonText: {
----+    fontSize: 14,
----+    fontWeight: '500',
----+    color: '#FFFFFF',
----+  },
----   emptyState: {
----     alignItems: 'center',
----     justifyContent: 'center',
+--@@ -1,76 +0,0 @@
+---diff --git a/model.patch b/model.patch
+---index 1bd963c..e69de29 100644
+------ a/model.patch
+---+++ b/model.patch
+---@@ -1,71 +0,0 @@
+----diff --git a/frontend/app/(tabs)/dashboard.tsx b/frontend/app/(tabs)/dashboard.tsx
+----index 4811763..ac904ab 100644
+------- a/frontend/app/(tabs)/dashboard.tsx
+----+++ b/frontend/app/(tabs)/dashboard.tsx
+----@@ -95,10 +95,9 @@ export default function Dashboard() {
+----     const isAboveThreshold = parseFloat(attendance) >= course.minAttendancePercentage;
+---- 
+----     return (
+-----      <TouchableOpacity
+----+      <View
+----         key={course.id}
+----         style={styles.courseCard}
+-----        onPress={() => router.push(`/mark-attendance?courseId=${course.id}`)}
+----       >
+----         <View style={[styles.courseColorBar, { backgroundColor: course.color }]} />
+----         <View style={styles.courseCardContent}>
+----@@ -146,8 +145,25 @@ export default function Dashboard() {
+----               )}
+----             </View>
+----           )}
+----+
+----+          <View style={styles.actionButtons}>
+----+            <TouchableOpacity
+----+              style={styles.actionButton}
+----+              onPress={() => router.push(`/mark-attendance?courseId=${course.id}`)}
+----+            >
+----+              <Ionicons name="add-circle" size={20} color="#4A90E2" />
+----+              <Text style={styles.actionButtonText}>Mark</Text>
+----+            </TouchableOpacity>
+----+            <TouchableOpacity
+----+              style={styles.actionButton}
+----+              onPress={() => router.push(`/bulk-attendance?courseId=${course.id}`)}
+----+            >
+----+              <Ionicons name="calendar" size={20} color="#9B59B6" />
+----+              <Text style={styles.actionButtonText}>Bulk Add</Text>
+----+            </TouchableOpacity>
+----+          </View>
+----         </View>
+-----      </TouchableOpacity>
+----+      </View>
+----     );
+----   };
+---- 
+----@@ -286,6 +302,27 @@ const styles = StyleSheet.create({
+----     marginLeft: 8,
+----     flex: 1,
+----   },
+----+  actionButtons: {
+----+    flexDirection: 'row',
+----+    marginTop: 12,
+----+    gap: 8,
+----+  },
+----+  actionButton: {
+----+    flex: 1,
+----+    flexDirection: 'row',
+----+    alignItems: 'center',
+----+    justifyContent: 'center',
+----+    backgroundColor: '#2C2C2E',
+----+    paddingVertical: 10,
+----+    paddingHorizontal: 12,
+----+    borderRadius: 8,
+----+    gap: 6,
+----+  },
+----+  actionButtonText: {
+----+    fontSize: 14,
+----+    fontWeight: '500',
+----+    color: '#FFFFFF',
+----+  },
+----   emptyState: {
+----     alignItems: 'center',
+----     justifyContent: 'center',
