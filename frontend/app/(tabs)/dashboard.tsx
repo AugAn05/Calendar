@@ -114,11 +114,15 @@ export default function Dashboard() {
 
           <View style={styles.statsRow}>
             <View style={styles.statItem}>
-              <Text style={styles.statValue}>{course.attendedClasses}/{course.totalClasses}</Text>
-              <Text style={styles.statLabel}>Attended</Text>
+              <Text style={styles.statValue}>
+                {course.attendedClasses}/{course.totalClassesInSemester || course.totalClasses}
+              </Text>
+              <Text style={styles.statLabel}>
+                {course.totalClassesInSemester ? 'Progress' : 'Attended'}
+              </Text>
             </View>
             <View style={styles.statItem}>
-              <Text style={styles.statValue}>{course.minAttendancePercentage}%</Text>
+              <Text style={styles.statValue}>{course.minAttendancePercentage || course.minAttendanceClasses}%</Text>
               <Text style={styles.statLabel}>Required</Text>
             </View>
           </View>
