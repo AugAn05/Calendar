@@ -58,8 +58,10 @@ export default function Dashboard() {
   };
 
   const calculateAttendance = (course: Course) => {
-    if (course.totalClasses === 0) return 0;
-    return ((course.attendedClasses / course.totalClasses) * 100).toFixed(1);
+    // Use totalClassesInSemester if set, otherwise use totalClasses
+    const total = course.totalClassesInSemester || course.totalClasses;
+    if (total === 0) return '0.0';
+    return ((course.attendedClasses / total) * 100).toFixed(1);
   };
 
   const getStatusColor = (course: Course) => {
