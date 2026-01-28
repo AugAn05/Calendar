@@ -340,10 +340,16 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     marginBottom: 12,
   },
-  dateInput: {
+  dateButton: {
     backgroundColor: '#1C1C1E',
     borderRadius: 12,
     padding: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  dateButtonText: {
+    flex: 1,
     fontSize: 16,
     color: '#FFFFFF',
   },
