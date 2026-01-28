@@ -161,14 +161,24 @@ export default function MarkAttendance() {
 
           <View style={styles.section}>
             <Text style={styles.sectionTitle}>Date</Text>
-            <TextInput
-              style={styles.dateInput}
-              value={selectedDate}
-              onChangeText={setSelectedDate}
-              placeholder="YYYY-MM-DD"
-              placeholderTextColor="#8E8E93"
-            />
-            <Text style={styles.dateHelp}>Format: YYYY-MM-DD (e.g., 2025-01-15)</Text>
+            <TouchableOpacity
+              style={styles.dateButton}
+              onPress={() => setShowDatePicker(true)}
+            >
+              <Ionicons name="calendar" size={20} color="#4A90E2" />
+              <Text style={styles.dateButtonText}>{formatDateDisplay(selectedDate)}</Text>
+              <Ionicons name="chevron-down" size={20} color="#8E8E93" />
+            </TouchableOpacity>
+            {showDatePicker && (
+              <DateTimePicker
+                value={selectedDate}
+                mode="date"
+                display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                onChange={onDateChange}
+                maximumDate={new Date()}
+              />
+            )}
+            <Text style={styles.dateHelp}>You can select any past date to add old absences</Text>
           </View>
 
           <View style={styles.section}>
