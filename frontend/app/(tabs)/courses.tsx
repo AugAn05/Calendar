@@ -62,13 +62,19 @@ export default function Courses() {
 
   const handleDelete = async (course: Course) => {
     console.log('Delete button clicked for:', course.name);
+    console.log('Platform.OS:', Platform.OS);
     
     // Use native confirm on web, Alert.alert on mobile
     if (Platform.OS === 'web') {
+      console.log('Using web confirm dialog');
       const confirmed = confirm(
         `Are you sure you want to delete "${course.name}"? This will also delete all attendance records.`
       );
-      if (!confirmed) return;
+      console.log('Confirm result:', confirmed);
+      if (!confirmed) {
+        console.log('User cancelled');
+        return;
+      }
       
       try {
         console.log('Deleting course:', course.id);
@@ -89,6 +95,7 @@ export default function Courses() {
         alert('Failed to delete course: ' + error.message);
       }
     } else {
+      console.log('Using mobile Alert.alert');
       Alert.alert(
         'Delete Course',
         `Are you sure you want to delete "${course.name}"? This will also delete all attendance records.`,
