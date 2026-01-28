@@ -15,6 +15,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ConfirmDialog from '../../components/ConfirmDialog';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL + '/api';
 
