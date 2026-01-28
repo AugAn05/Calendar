@@ -70,18 +70,25 @@ export default function AddCourse() {
 
     setIsSubmitting(true);
     try {
+      const bodyData: any = {
+        name: name.trim(),
+        type,
+        schedule,
+        minAttendancePercentage: parseFloat(minAttendance),
+        color: selectedColor,
+      };
+      
+      // Only include totalClassesInSemester if it has a value
+      if (totalClassesInSemester && totalClassesInSemester.trim() !== '') {
+        bodyData.totalClassesInSemester = parseInt(totalClassesInSemester);
+      }
+
       const response = await fetch(`${API_URL}/courses`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          name: name.trim(),
-          type,
-          schedule,
-          minAttendancePercentage: parseFloat(minAttendance),
-          color: selectedColor,
-        }),
+        body: JSON.stringify(bodyData),
       });
 
       if (response.ok) {
