@@ -29,6 +29,7 @@ export default function AddCourse() {
   const [name, setName] = useState('');
   const [type, setType] = useState<'course' | 'seminar'>('course');
   const [minAttendance, setMinAttendance] = useState('75');
+  const [totalClassesInSemester, setTotalClassesInSemester] = useState('');
   const [selectedColor, setSelectedColor] = useState(COLORS[0]);
   const [schedule, setSchedule] = useState<ScheduleSlot[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
