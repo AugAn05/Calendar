@@ -148,7 +148,7 @@ export default function Courses() {
               <Text style={styles.courseType}>{course.type}</Text>
             </View>
             <View style={styles.courseActions}>
-              <TouchableOpacity
+              <Pressable
                 style={styles.actionButton}
                 onPress={() => {
                   console.log('Edit button clicked');
@@ -156,18 +156,16 @@ export default function Courses() {
                 }}
               >
                 <Ionicons name="create-outline" size={24} color="#4A90E2" />
-              </TouchableOpacity>
-              <TouchableOpacity
+              </Pressable>
+              <Pressable
                 style={styles.actionButton}
-                onPress={(e) => {
-                  console.log('Trash button clicked for course:', course.name);
-                  e.stopPropagation();
+                onPress={() => {
+                  console.log('DELETE BUTTON PRESSED for:', course.name, course.id);
                   handleDelete(course);
                 }}
-                activeOpacity={0.7}
               >
                 <Ionicons name="trash-outline" size={24} color="#FF3B30" />
-              </TouchableOpacity>
+              </Pressable>
             </View>
           </View>
 
