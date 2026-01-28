@@ -57,38 +57,67 @@ export default function Courses() {
     fetchCourses();
   };
 
-  const handleDelete = (course: Course) => {
-    Alert.alert(
-      'Delete Course',
-      `Are you sure you want to delete "${course.name}"? This will also delete all attendance records.`,
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Delete',
-          style: 'destructive',
-          onPress: async () => {
-            try {
-              console.log('Deleting course:', course.id);
-              const response = await fetch(`${API_URL}/courses/${course.id}`, {
-                method: 'DELETE',
-              });
-              console.log('Delete response status:', response.status);
-              if (response.ok) {
-                Alert.alert('Success', 'Course deleted successfully');
-                fetchCourses();
-              } else {
-                const errorData = await response.json().catch(() => ({}));
-                console.error('Delete error:', errorData);
-                Alert.alert('Error', errorData.detail || 'Failed to delete course');
+  const handleDelete = async (course: Course) => {
+    console.log('Delete button clicked for:', course.name);
+    
+    // Use native confirm on web, Alert.alert on mobile
+    if (Platform.OS === 'web') {
+      const confirmed = confirm(
+        `Are you sure you want to delete "${course.name}"? This will also delete all attendance records.`
+      );
+      if (!confirmed) return;
+      
+      try {
+        console.log('Deleting course:', course.id);
+        const response = await fetch(`${API_URL}/courses/${course.id}`, {
+          method: 'DELETE',
+        });
+        console.log('Delete response status:', response.status);
+        if (response.ok) {
+          alert('Course deleted successfully');
+          fetchCourses();
+        } else {
+          const errorData = await response.json().catch(() => ({}));
+          console.error('Delete error:', errorData);
+          alert(errorData.detail || 'Failed to delete course');
+        }
+      } catch (error: any) {
+        console.error('Delete exception:', error);
+        alert('Failed to delete course: ' + error.message);
+      }
+    } else {
+      Alert.alert(
+        'Delete Course',
+        `Are you sure you want to delete "${course.name}"? This will also delete all attendance records.`,
+        [
+          { text: 'Cancel', style: 'cancel' },
+          {
+            text: 'Delete',
+            style: 'destructive',
+            onPress: async () => {
+              try {
+                console.log('Deleting course:', course.id);
+                const response = await fetch(`${API_URL}/courses/${course.id}`, {
+                  method: 'DELETE',
+                });
+                console.log('Delete response status:', response.status);
+                if (response.ok) {
+                  Alert.alert('Success', 'Course deleted successfully');
+                  fetchCourses();
+                } else {
+                  const errorData = await response.json().catch(() => ({}));
+                  console.error('Delete error:', errorData);
+                  Alert.alert('Error', errorData.detail || 'Failed to delete course');
+                }
+              } catch (error: any) {
+                console.error('Delete exception:', error);
+                Alert.alert('Error', 'Failed to delete course: ' + error.message);
               }
-            } catch (error) {
-              console.error('Delete exception:', error);
-              Alert.alert('Error', 'Failed to delete course: ' + error.message);
-            }
+            },
           },
-        },
-      ]
-    );
+        ]
+      );
+    }
   };
 
   const calculateAttendance = (course: Course) => {
