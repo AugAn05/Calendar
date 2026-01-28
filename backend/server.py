@@ -181,12 +181,15 @@ async def create_attendance(attendance: AttendanceCreate):
         raise HTTPException(status_code=400, detail=str(e))
 
 @api_router.post("/attendance/bulk")
-async def create_bulk_attendance(courseId: str, startDate: str, endDate: str, attendanceList: list):
+async def create_bulk_attendance(request: dict):
     """
     Bulk create attendance records
-    attendanceList format: [{"date": "2025-01-15", "status": "present"}, ...]
+    Request format: {"courseId": "...", "attendanceList": [{"date": "2025-01-15", "status": "present"}, ...]}
     """
     try:
+        courseId = request.get("courseId")
+        attendanceList = request.get("attendanceList", [])
+        
         created_count = 0
         skipped_count = 0
         
