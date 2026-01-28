@@ -73,10 +73,19 @@ export default function Dashboard() {
 
   const getClassesCanMiss = (course: Course) => {
     const threshold = course.minAttendancePercentage / 100;
-    const canMiss = Math.floor(
+    
+    // Calculate theoretical classes that can be missed
+    const theoreticalCanMiss = Math.floor(
       (course.attendedClasses - threshold * course.totalClasses) / threshold
     );
-    return Math.max(0, canMiss);
+    
+    // Calculate actual remaining classes in the semester
+    const remainingClasses = course.totalClassesInSemester 
+      ? Math.max(0, course.totalClassesInSemester - course.totalClasses)
+      : theoreticalCanMiss; // If no semester total set, use theoretical
+    
+    // Can't miss more than what's remaining
+    return Math.max(0, Math.min(theoreticalCanMiss, remainingClasses));
   };
 
   const getClassesNeeded = (course: Course) => {
@@ -84,6 +93,16 @@ export default function Dashboard() {
     const needed = Math.ceil(
       (threshold * course.totalClasses - course.attendedClasses) / (1 - threshold)
     );
+    
+    // If totalClassesInSemester is set, cap to remaining classes
+    if (course.totalClassesInSemester) {
+      const remainingClasses = Math.max(0, course.totalClassesInSemester - course.totalClasses);
+      // If more classes needed than remaining, it's impossible to reach threshold
+      if (needed > remainingClasses) {
+        return remainingClasses; // Show remaining classes with warning
+      }
+    }
+    
     return Math.max(0, needed);
   };
 
