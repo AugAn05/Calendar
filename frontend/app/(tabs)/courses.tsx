@@ -155,7 +155,7 @@ export default function Courses() {
           <View style={styles.statsContainer}>
             <View style={styles.statBox}>
               <Text style={styles.statValue}>{attendance}%</Text>
-              <Text style={styles.statLabel}>Current</Text>
+              <Text style={styles.statLabel}>{t('current')}</Text>
             </View>
             <View style={styles.statBox}>
               <Text style={styles.statValue}>
@@ -164,7 +164,7 @@ export default function Courses() {
                   : `${course.minAttendanceClasses}`
                 }
               </Text>
-              <Text style={styles.statLabel}>Required</Text>
+              <Text style={styles.statLabel}>{t('required')}</Text>
             </View>
             <View style={styles.statBox}>
               <Text style={styles.statValue}>
@@ -174,7 +174,7 @@ export default function Courses() {
                 }
               </Text>
               <Text style={styles.statLabel}>
-                {course.totalClassesInSemester ? 'Progress' : 'Classes'}
+                {course.totalClassesInSemester ? t('progress') : t('classes')}
               </Text>
             </View>
           </View>
