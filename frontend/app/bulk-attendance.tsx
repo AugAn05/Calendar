@@ -273,40 +273,16 @@ const styles = StyleSheet.create({
     color: '#8E8E93',
     marginBottom: 16,
   },
-  optionsGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-  },
-  optionCard: {
-    width: '30%',
-    aspectRatio: 1,
+  numberInput: {
     backgroundColor: '#1C1C1E',
-    borderRadius: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderRadius: 12,
+    padding: 20,
+    fontSize: 24,
+    fontWeight: '600',
+    color: '#FFFFFF',
+    textAlign: 'center',
     borderWidth: 2,
     borderColor: '#2C2C2E',
-  },
-  optionCardActive: {
-    backgroundColor: '#4A90E2',
-    borderColor: '#4A90E2',
-  },
-  optionNumber: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginBottom: 4,
-  },
-  optionNumberActive: {
-    color: '#FFFFFF',
-  },
-  optionLabel: {
-    fontSize: 12,
-    color: '#8E8E93',
-  },
-  optionLabelActive: {
-    color: '#FFFFFF',
   },
   summaryBox: {
     flexDirection: 'row',
