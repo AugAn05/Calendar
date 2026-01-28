@@ -1,7 +1,10 @@
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useLanguage } from '../../i18n/LanguageContext';
 
 export default function TabLayout() {
+  const { t } = useLanguage();
+  
   return (
     <Tabs
       screenOptions={{
@@ -14,17 +17,13 @@ export default function TabLayout() {
           paddingBottom: 8,
           height: 65,
         },
-        headerStyle: {
-          backgroundColor: '#1C1C1E',
-        },
-        headerTintColor: '#FFFFFF',
-        headerShadowVisible: false,
+        headerShown: false,
       }}
     >
       <Tabs.Screen
         name="dashboard"
         options={{
-          title: 'Dashboard',
+          title: t('dashboard'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" size={size} color={color} />
           ),
@@ -33,7 +32,7 @@ export default function TabLayout() {
       <Tabs.Screen
         name="courses"
         options={{
-          title: 'Courses',
+          title: t('courses'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="book" size={size} color={color} />
           ),
@@ -42,9 +41,18 @@ export default function TabLayout() {
       <Tabs.Screen
         name="absences"
         options={{
-          title: 'Absences',
+          title: t('absences'),
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="alert-circle" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: t('settings'),
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="settings" size={size} color={color} />
           ),
         }}
       />
