@@ -172,7 +172,7 @@ export default function BulkAttendance() {
           <View style={styles.summaryBox}>
             <Ionicons name="checkmark-circle" size={24} color="#34C759" />
             <Text style={styles.summaryText}>
-              Will add <Text style={styles.summaryBold}>{numberOfPresences} presences</Text> going back {Math.ceil(numberOfPresences / 4)} months (weekly intervals)
+              Will add <Text style={styles.summaryBold}>{numberOfPresences} past presences</Text> starting from 1 week ago (excludes today)
             </Text>
           </View>
         )}
