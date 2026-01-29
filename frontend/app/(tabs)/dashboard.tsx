@@ -15,10 +15,10 @@ import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLanguage } from '../../i18n/LanguageContext';
 
-// Only import banner ad on native platforms
-const BannerAd = Platform.OS !== 'web' 
-  ? require('../../components/BannerAd').default 
-  : () => null;
+// Banner ad disabled for Expo Go - will work in production build
+// const BannerAd = Platform.OS !== 'web' 
+//   ? require('../../components/BannerAd').default 
+//   : () => null;
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL + '/api';
 
