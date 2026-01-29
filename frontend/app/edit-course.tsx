@@ -317,7 +317,7 @@ export default function EditCourse() {
 
                 <View style={styles.timeRow}>
                   <View style={styles.timeInput}>
-                    <Text style={styles.label}><Text style={styles.label}>{t('startTime')}</Text></Text>
+                    <Text style={styles.label}>{t('startTime')}</Text>
                     <TextInput
                       style={styles.input}
                       value={slot.startTime}
@@ -327,7 +327,7 @@ export default function EditCourse() {
                     />
                   </View>
                   <View style={styles.timeInput}>
-                    <Text style={styles.label}><Text style={styles.label}>{t('endTime')}</Text></Text>
+                    <Text style={styles.label}>{t('endTime')}</Text>
                     <TextInput
                       style={styles.input}
                       value={slot.endTime}
