@@ -313,3 +313,50 @@ export async function initializeNotifications(language: string = 'en'): Promise<
     await rescheduleAllNotifications(language);
   }
 }
+
+// Test notification - sends immediately
+export async function sendTestNotifications(language: string = 'en'): Promise<void> {
+  try {
+    const hasPermission = await requestNotificationPermissions();
+    
+    if (!hasPermission) {
+      throw new Error('Notification permissions not granted');
+    }
+
+    // Test notification 1: After class reminder
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: language === 'ro' ? 'Test: Ora tocmai s-a terminat!' : 'Test: Class Just Ended!',
+        body: language === 'ro' 
+          ? 'Nu uita să marchezi prezența pentru Structuri de Date'
+          : "Don't forget to mark your attendance for Data Structures",
+        data: { type: 'test', notificationType: 'after-class' },
+        sound: true,
+      },
+      trigger: {
+        seconds: 2, // Trigger in 2 seconds
+      },
+    });
+
+    // Test notification 2: Before class alert
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: language === 'ro' ? 'Test: Oră următoare' : 'Test: Upcoming Class',
+        body: language === 'ro'
+          ? 'Algoritmi începe în curând. Mai trebuie să participi la 3 ore'
+          : 'Algorithms starts soon. You need 3 more classes to meet the requirement',
+        data: { type: 'test', notificationType: 'before-class' },
+        sound: true,
+      },
+      trigger: {
+        seconds: 5, // Trigger in 5 seconds
+      },
+    });
+
+    console.log('Test notifications scheduled!');
+    return Promise.resolve();
+  } catch (error) {
+    console.error('Error sending test notifications:', error);
+    throw error;
+  }
+}
