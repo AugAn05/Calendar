@@ -82,6 +82,9 @@ export default function Courses() {
       });
       console.log('Delete response status:', response.status);
       if (response.ok) {
+        // Cancel notifications for this course
+        await cancelCourseNotifications(courseToDelete.id);
+        
         setDeleteDialogVisible(false);
         setCourseToDelete(null);
         fetchCourses();
