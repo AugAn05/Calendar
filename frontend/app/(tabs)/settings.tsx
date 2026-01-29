@@ -17,6 +17,18 @@ export default function Settings() {
   const { language, setLanguage, t } = useLanguage();
   const [isSendingTest, setIsSendingTest] = useState(false);
 
+  const handleTestNotifications = async () => {
+    setIsSendingTest(true);
+    try {
+      await sendTestNotifications(language);
+      Alert.alert(t('success'), t('testNotificationsSent'));
+    } catch (error) {
+      Alert.alert(t('error'), 'Failed to send test notifications. Please check permissions.');
+    } finally {
+      setIsSendingTest(false);
+    }
+  };
+
   const languages: { code: Language; name: string; flag: string }[] = [
     { code: 'en', name: t('english'), flag: '🇬🇧' },
     { code: 'ro', name: t('romanian'), flag: '🇷🇴' },
