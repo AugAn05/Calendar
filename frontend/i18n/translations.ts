@@ -39,6 +39,10 @@ export const translations = {
     appSettings: 'App Settings',
     about: 'About',
     version: 'Version',
+    notifications: 'Notifications',
+    testNotifications: 'Test Notifications',
+    testNotificationsDesc: 'Send test notifications immediately',
+    testNotificationsSent: 'Test notifications sent! Check in 2-5 seconds.',
     
     // Add/Edit Course
     addCourse: 'Add Course',
