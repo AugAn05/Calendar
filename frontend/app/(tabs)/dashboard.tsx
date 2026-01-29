@@ -174,7 +174,7 @@ export default function Dashboard() {
           <View style={styles.courseHeader}>
             <View style={styles.courseInfo}>
               <Text style={styles.courseName}>{course.name}</Text>
-              <Text style={styles.courseType}>{course.type}</Text>
+              <Text style={styles.courseType}>{translateCourseType(course.type)}</Text>
             </View>
             <View style={[styles.attendanceBadge, { backgroundColor: statusColor }]}>
               <Text style={styles.attendancePercentage}>{attendance}%</Text>
