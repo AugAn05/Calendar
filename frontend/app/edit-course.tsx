@@ -29,14 +29,27 @@ interface ScheduleSlot {
 
 export default function EditCourse() {
   const { courseId } = useLocalSearchParams();
+  const { t, language } = useLanguage();
   const [loading, setLoading] = useState(true);
   const [name, setName] = useState('');
   const [type, setType] = useState<'course' | 'seminar'>('course');
-  const [minAttendance, setMinAttendance] = useState('75');
+  const [minAttendance, setMinAttendance] = useState('');
+  const [minAttendanceClasses, setMinAttendanceClasses] = useState('');
   const [totalClassesInSemester, setTotalClassesInSemester] = useState('');
   const [selectedColor, setSelectedColor] = useState(COLORS[0]);
   const [schedule, setSchedule] = useState<ScheduleSlot[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Days array using translations
+  const DAYS = [
+    { key: 'Monday', label: t('monday') },
+    { key: 'Tuesday', label: t('tuesday') },
+    { key: 'Wednesday', label: t('wednesday') },
+    { key: 'Thursday', label: t('thursday') },
+    { key: 'Friday', label: t('friday') },
+    { key: 'Saturday', label: t('saturday') },
+    { key: 'Sunday', label: t('sunday') },
+  ];
 
   useEffect(() => {
     fetchCourse();
