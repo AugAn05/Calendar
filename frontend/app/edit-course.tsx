@@ -277,7 +277,7 @@ export default function EditCourse() {
 
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
-              <Text style={styles.sectionTitle}><Text style={styles.sectionTitle}>{t('schedule')}</Text></Text>
+              <Text style={styles.sectionTitle}>{t('schedule')}</Text>
               <TouchableOpacity onPress={addScheduleSlot} style={styles.addScheduleButton}>
                 <Ionicons name="add" size={24} color="#4A90E2" />
               </TouchableOpacity>
@@ -292,7 +292,7 @@ export default function EditCourse() {
                   </TouchableOpacity>
                 </View>
 
-                <Text style={styles.label}><Text style={styles.label}>{t('day')}</Text></Text>
+                <Text style={styles.label}>{t('day')}</Text>
                 <View style={styles.dayButtons}>
                   {DAYS.map((day) => (
                     <TouchableOpacity
