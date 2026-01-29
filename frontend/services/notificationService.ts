@@ -43,30 +43,40 @@ const DAY_MAP: { [key: string]: number } = {
 
 // Request notification permissions
 export async function requestNotificationPermissions(): Promise<boolean> {
-  const { status: existingStatus } = await Notifications.getPermissionsAsync();
-  let finalStatus = existingStatus;
+  try {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
 
-  if (existingStatus !== 'granted') {
-    const { status } = await Notifications.requestPermissionsAsync();
-    finalStatus = status;
-  }
+    console.log('Current notification permission status:', existingStatus);
 
-  if (finalStatus !== 'granted') {
-    console.warn('Notification permission not granted');
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+      console.log('New notification permission status:', status);
+    }
+
+    if (finalStatus !== 'granted') {
+      console.warn('Notification permission not granted. Status:', finalStatus);
+      return false;
+    }
+
+    // Configure notification channel for Android
+    if (Platform.OS === 'android') {
+      await Notifications.setNotificationChannelAsync('default', {
+        name: 'Course Notifications',
+        importance: Notifications.AndroidImportance.HIGH,
+        vibrationPattern: [0, 250, 250, 250],
+        lightColor: '#4A90E2',
+      });
+      console.log('Android notification channel configured');
+    }
+
+    console.log('Notification permissions granted successfully');
+    return true;
+  } catch (error) {
+    console.error('Error requesting notification permissions:', error);
     return false;
   }
-
-  // Configure notification channel for Android
-  if (Platform.OS === 'android') {
-    await Notifications.setNotificationChannelAsync('default', {
-      name: 'Course Notifications',
-      importance: Notifications.AndroidImportance.HIGH,
-      vibrationPattern: [0, 250, 250, 250],
-      lightColor: '#4A90E2',
-    });
-  }
-
-  return true;
 }
 
 // Calculate classes needed
