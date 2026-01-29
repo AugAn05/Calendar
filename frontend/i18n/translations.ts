@@ -112,7 +112,7 @@ export const translations = {
     classWord: 'oră',
     classesWord: 'ore',
     mark: 'Marchează',
-    bulkAdd: 'Adaugă în bloc',
+    bulkAdd: 'Prezențe trecute',
     
     // Courses
     current: 'Actual',
