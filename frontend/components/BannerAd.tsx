@@ -22,7 +22,9 @@ if (Platform.OS !== 'web') {
 const AD_IDS = {
   banner: __DEV__ 
     ? 'ca-app-pub-3940256099942544/6300978111' // Test banner ID
-    : 'ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY', // Your real banner ID
+    : Platform.OS === 'ios'
+      ? 'ca-app-pub-3169738861869070/8395445747' // iOS Banner
+      : 'ca-app-pub-3169738861869070/3969889650', // Android Banner
 };
 
 export default function BannerAdComponent() {
