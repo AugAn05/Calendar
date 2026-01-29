@@ -21,9 +21,16 @@ export default function Settings() {
     setIsSendingTest(true);
     try {
       await sendTestNotifications(language);
-      Alert.alert(t('success'), t('testNotificationsSent'));
-    } catch (error) {
-      Alert.alert(t('error'), 'Failed to send test notifications. Please check permissions.');
+      Alert.alert(
+        t('success'), 
+        t('testNotificationsSent')
+      );
+    } catch (error: any) {
+      console.error('Test notification error:', error);
+      const errorMessage = language === 'ro' 
+        ? 'Nu s-au putut trimite notificările de test. Te rog verifică permisiunile pentru notificări în setările telefonului (Setări → Aplicații → Expo Go → Notificări).'
+        : 'Failed to send test notifications. Please check notification permissions in your phone settings (Settings → Apps → Expo Go → Notifications).';
+      Alert.alert(t('error'), errorMessage);
     } finally {
       setIsSendingTest(false);
     }
