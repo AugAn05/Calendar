@@ -106,10 +106,33 @@ export default function Courses() {
     return ((course.attendedClasses / total) * 100).toFixed(1);
   };
 
+  const translateDay = (day: string) => {
+    const dayMap: { [key: string]: string } = {
+      'Monday': t('monday'),
+      'Tuesday': t('tuesday'),
+      'Wednesday': t('wednesday'),
+      'Thursday': t('thursday'),
+      'Friday': t('friday'),
+      'Saturday': t('saturday'),
+      'Sunday': t('sunday'),
+    };
+    return dayMap[day] || day;
+  };
+
+  const translateCourseType = (type: string) => {
+    const typeMap: { [key: string]: string } = {
+      'course': t('course'),
+      'seminar': t('seminar'),
+      'laboratory': t('laboratory'),
+      'lecture': t('lecture'),
+    };
+    return typeMap[type] || type;
+  };
+
   const formatSchedule = (schedule: Array<{ day: string; startTime: string; endTime: string }>) => {
     if (!schedule || schedule.length === 0) return t('noSchedule');
     return schedule
-      .map((s) => `${s.day} ${s.startTime}-${s.endTime}`)
+      .map((s) => `${translateDay(s.day)} ${s.startTime}-${s.endTime}`)
       .join(', ');
   };
 
