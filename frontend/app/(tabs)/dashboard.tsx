@@ -13,6 +13,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLanguage } from '../../i18n/LanguageContext';
+import BannerAd from '../../components/BannerAd';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL + '/api';
 
