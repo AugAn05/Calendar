@@ -255,7 +255,7 @@ export default function EditCourse() {
               Set this if you know how many classes total in the semester
             </Text>
 
-            <Text style={styles.label}><Text style={styles.label}>{t('color')}</Text></Text>
+            <Text style={styles.label}>{t('color')}</Text>
             <View style={styles.colorPicker}>
               {COLORS.map((color) => (
                 <TouchableOpacity
