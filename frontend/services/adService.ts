@@ -80,13 +80,17 @@ export async function markPopupShown(): Promise<void> {
   }
 }
 
-// AdMob IDs (Test IDs - replace with your real IDs after creating AdMob account)
+// AdMob IDs
 export const AD_IDS = {
   banner: __DEV__ 
     ? 'ca-app-pub-3940256099942544/6300978111' // Test banner ID
-    : 'ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY', // Your real banner ID
+    : Platform.OS === 'ios'
+      ? 'ca-app-pub-3169738861869070/8395445747' // iOS Banner
+      : 'ca-app-pub-3169738861869070/3969889650', // Android Banner
   
   rewarded: __DEV__
     ? 'ca-app-pub-3940256099942544/5224354917' // Test rewarded ID
-    : 'ca-app-pub-XXXXXXXXXXXXXXXX/ZZZZZZZZZZ', // Your real rewarded ID
+    : Platform.OS === 'ios'
+      ? 'ca-app-pub-3169738861869070/9145420631' // iOS Rewarded
+      : 'ca-app-pub-3169738861869070/2058042186', // Android Rewarded
 };
