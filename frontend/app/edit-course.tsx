@@ -296,20 +296,20 @@ export default function EditCourse() {
                 <View style={styles.dayButtons}>
                   {DAYS.map((day) => (
                     <TouchableOpacity
-                      key={day}
+                      key={day.key}
                       style={[
                         styles.dayButton,
-                        slot.day === day && styles.dayButtonActive,
+                        slot.day === day.key && styles.dayButtonActive,
                       ]}
-                      onPress={() => updateScheduleSlot(index, 'day', day)}
+                      onPress={() => updateScheduleSlot(index, 'day', day.key)}
                     >
                       <Text
                         style={[
                           styles.dayButtonText,
-                          slot.day === day && styles.dayButtonTextActive,
+                          slot.day === day.key && styles.dayButtonTextActive,
                         ]}
                       >
-                        {day.substring(0, 3)}
+                        {day.label.substring(0, 3)}
                       </Text>
                     </TouchableOpacity>
                   ))}
