@@ -211,7 +211,7 @@ export default function EditCourse() {
                     type === 'course' && styles.typeButtonTextActive,
                   ]}
                 >
-                  Course
+                  {t('course')}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -227,7 +227,7 @@ export default function EditCourse() {
                     type === 'seminar' && styles.typeButtonTextActive,
                   ]}
                 >
-                  Seminar
+                  {t('seminar')}
                 </Text>
               </TouchableOpacity>
             </View>
