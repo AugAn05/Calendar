@@ -27,7 +27,7 @@ interface ScheduleSlot {
 }
 
 export default function AddCourse() {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [name, setName] = useState('');
   const [type, setType] = useState<'course' | 'seminar'>('course');
   const [minAttendance, setMinAttendance] = useState('');
