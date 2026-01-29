@@ -63,7 +63,7 @@ export default function AddCourse() {
 
   const validateForm = () => {
     if (!name.trim()) {
-      Alert.alert('Error', 'Please enter a course name');
+      Alert.alert(t('error'), 'Please enter a course name');
       return false;
     }
     
@@ -72,14 +72,14 @@ export default function AddCourse() {
     const hasMinClasses = minAttendanceClasses && minAttendanceClasses.trim() !== '';
     
     if (!hasPercentage && !hasMinClasses) {
-      Alert.alert('Error', 'Please enter either minimum attendance percentage OR minimum classes needed');
+      Alert.alert(t('error'), 'Please enter either minimum attendance percentage OR minimum classes needed');
       return false;
     }
     
     if (hasPercentage) {
       const attendance = parseFloat(minAttendance);
       if (isNaN(attendance) || attendance < 0 || attendance > 100) {
-        Alert.alert('Error', 'Minimum attendance percentage must be between 0 and 100');
+        Alert.alert(t('error'), 'Minimum attendance percentage must be between 0 and 100');
         return false;
       }
     }
@@ -87,13 +87,13 @@ export default function AddCourse() {
     if (hasMinClasses) {
       const minClasses = parseInt(minAttendanceClasses);
       if (isNaN(minClasses) || minClasses < 0) {
-        Alert.alert('Error', 'Minimum classes must be a positive number');
+        Alert.alert(t('error'), 'Minimum classes must be a positive number');
         return false;
       }
     }
     
     if (schedule.length === 0) {
-      Alert.alert('Error', 'Please add at least one schedule slot');
+      Alert.alert(t('error'), 'Please add at least one schedule slot');
       return false;
     }
     return true;
@@ -134,14 +134,14 @@ export default function AddCourse() {
       });
 
       if (response.ok) {
-        Alert.alert('Success', 'Course added successfully');
+        Alert.alert(t('success'), 'Course added successfully');
         router.back();
       } else {
         const error = await response.json();
-        Alert.alert('Error', error.detail || 'Failed to add course');
+        Alert.alert(t('error'), error.detail || 'Failed to add course');
       }
     } catch (error) {
-      Alert.alert('Error', 'Failed to add course');
+      Alert.alert(t('error'), 'Failed to add course');
     } finally {
       setIsSubmitting(false);
     }
@@ -153,14 +153,14 @@ export default function AddCourse() {
         <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>
           <Ionicons name="close" size={28} color="#FFFFFF" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Add Course</Text>
+        <Text style={styles.headerTitle}>{t('addCourse')}</Text>
         <TouchableOpacity
           onPress={handleSubmit}
           disabled={isSubmitting}
           style={styles.saveButton}
         >
           <Text style={[styles.saveButtonText, isSubmitting && styles.saveButtonDisabled]}>
-            Save
+            {t('save')}
           </Text>
         </TouchableOpacity>
       </View>
@@ -171,9 +171,9 @@ export default function AddCourse() {
       >
         <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Basic Information</Text>
+            <Text style={styles.sectionTitle}>{t('basicInformation')}</Text>
             
-            <Text style={styles.label}>Course Name</Text>
+            <Text style={styles.label}>{t('courseName')}</Text>
             <TextInput
               style={styles.input}
               value={name}
@@ -182,7 +182,7 @@ export default function AddCourse() {
               placeholderTextColor="#8E8E93"
             />
 
-            <Text style={styles.label}>Type</Text>
+            <Text style={styles.label}>{t('type')}</Text>
             <View style={styles.typeButtons}>
               <TouchableOpacity
                 style={[
@@ -197,7 +197,7 @@ export default function AddCourse() {
                     type === 'course' && styles.typeButtonTextActive,
                   ]}
                 >
-                  Course
+                  {t('course')}
                 </Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -213,12 +213,12 @@ export default function AddCourse() {
                     type === 'seminar' && styles.typeButtonTextActive,
                   ]}
                 >
-                  Seminar
+                  {t('seminar')}
                 </Text>
               </TouchableOpacity>
             </View>
 
-            <Text style={styles.label}>Minimum Attendance (%) - Optional</Text>
+            <Text style={styles.label}>{t('minAttendancePercentageLabel')}</Text>
             <TextInput
               style={styles.input}
               value={minAttendance}
@@ -228,7 +228,7 @@ export default function AddCourse() {
               keyboardType="numeric"
             />
 
-            <Text style={styles.label}>Minimum Classes Needed - Optional</Text>
+            <Text style={styles.label}>{t('minAttendanceClassesLabel')}</Text>
             <TextInput
               style={styles.input}
               value={minAttendanceClasses}
@@ -238,10 +238,10 @@ export default function AddCourse() {
               keyboardType="numeric"
             />
             <Text style={styles.helpText}>
-              * At least one attendance requirement is required
+              {t('atLeastOneRequired')}
             </Text>
 
-            <Text style={styles.label}>Total Classes in Semester (Optional)</Text>
+            <Text style={styles.label}>{t('totalClassesLabel')}</Text>
             <TextInput
               style={styles.input}
               value={totalClassesInSemester}
@@ -251,10 +251,10 @@ export default function AddCourse() {
               keyboardType="numeric"
             />
             <Text style={styles.helpText}>
-              Set this if you know how many classes total in the semester
+              {t('setTotalClassesHelp')}
             </Text>
 
-            <Text style={styles.label}>Color</Text>
+            <Text style={styles.label}>{t('color')}</Text>
             <View style={styles.colorPicker}>
               {COLORS.map((color) => (
                 <TouchableOpacity
@@ -276,7 +276,7 @@ export default function AddCourse() {
 
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
-              <Text style={styles.sectionTitle}>Schedule</Text>
+              <Text style={styles.sectionTitle}>{t('schedule')}</Text>
               <TouchableOpacity onPress={addScheduleSlot} style={styles.addScheduleButton}>
                 <Ionicons name="add" size={24} color="#4A90E2" />
               </TouchableOpacity>
@@ -285,30 +285,30 @@ export default function AddCourse() {
             {schedule.map((slot, index) => (
               <View key={index} style={styles.scheduleSlot}>
                 <View style={styles.scheduleSlotHeader}>
-                  <Text style={styles.scheduleSlotTitle}>Slot {index + 1}</Text>
+                  <Text style={styles.scheduleSlotTitle}>{t('slot')} {index + 1}</Text>
                   <TouchableOpacity onPress={() => removeScheduleSlot(index)}>
                     <Ionicons name="trash-outline" size={20} color="#FF3B30" />
                   </TouchableOpacity>
                 </View>
 
-                <Text style={styles.label}>Day</Text>
+                <Text style={styles.label}>{t('day')}</Text>
                 <View style={styles.dayButtons}>
                   {DAYS.map((day) => (
                     <TouchableOpacity
-                      key={day}
+                      key={day.key}
                       style={[
                         styles.dayButton,
-                        slot.day === day && styles.dayButtonActive,
+                        slot.day === day.key && styles.dayButtonActive,
                       ]}
-                      onPress={() => updateScheduleSlot(index, 'day', day)}
+                      onPress={() => updateScheduleSlot(index, 'day', day.key)}
                     >
                       <Text
                         style={[
                           styles.dayButtonText,
-                          slot.day === day && styles.dayButtonTextActive,
+                          slot.day === day.key && styles.dayButtonTextActive,
                         ]}
                       >
-                        {day.substring(0, 3)}
+                        {day.label.substring(0, 3)}
                       </Text>
                     </TouchableOpacity>
                   ))}
@@ -316,7 +316,7 @@ export default function AddCourse() {
 
                 <View style={styles.timeRow}>
                   <View style={styles.timeInput}>
-                    <Text style={styles.label}>Start Time</Text>
+                    <Text style={styles.label}>{t('startTime')}</Text>
                     <TextInput
                       style={styles.input}
                       value={slot.startTime}
@@ -326,7 +326,7 @@ export default function AddCourse() {
                     />
                   </View>
                   <View style={styles.timeInput}>
-                    <Text style={styles.label}>End Time</Text>
+                    <Text style={styles.label}>{t('endTime')}</Text>
                     <TextInput
                       style={styles.input}
                       value={slot.endTime}
@@ -342,8 +342,8 @@ export default function AddCourse() {
             {schedule.length === 0 && (
               <View style={styles.emptySchedule}>
                 <Ionicons name="calendar-outline" size={48} color="#8E8E93" />
-                <Text style={styles.emptyScheduleText}>No schedule added yet</Text>
-                <Text style={styles.emptyScheduleSubtext}>Tap + to add a time slot</Text>
+                <Text style={styles.emptyScheduleText}>{t('noScheduleAdded')}</Text>
+                <Text style={styles.emptyScheduleSubtext}>{t('tapPlusToAdd')}</Text>
               </View>
             )}
           </View>
