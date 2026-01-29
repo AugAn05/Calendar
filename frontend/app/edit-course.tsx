@@ -255,7 +255,7 @@ export default function EditCourse() {
               Set this if you know how many classes total in the semester
             </Text>
 
-            <Text style={styles.label}>{{t('color')}}</Text>
+            <Text style={styles.label}>{t('color')}}</Text>
             <View style={styles.colorPicker}>
               {COLORS.map((color) => (
                 <TouchableOpacity
@@ -277,7 +277,7 @@ export default function EditCourse() {
 
           <View style={styles.section}>
             <View style={styles.sectionHeader}>
-              <Text style={styles.sectionTitle}>{{t('schedule')}}</Text>
+              <Text style={styles.sectionTitle}>{t('schedule')}}</Text>
               <TouchableOpacity onPress={addScheduleSlot} style={styles.addScheduleButton}>
                 <Ionicons name="add" size={24} color="#4A90E2" />
               </TouchableOpacity>
@@ -292,7 +292,7 @@ export default function EditCourse() {
                   </TouchableOpacity>
                 </View>
 
-                <Text style={styles.label}>{{t('day')}}</Text>
+                <Text style={styles.label}>{t('day')}}</Text>
                 <View style={styles.dayButtons}>
                   {DAYS.map((day) => (
                     <TouchableOpacity
@@ -317,7 +317,7 @@ export default function EditCourse() {
 
                 <View style={styles.timeRow}>
                   <View style={styles.timeInput}>
-                    <Text style={styles.label}>{{t('startTime')}}</Text>
+                    <Text style={styles.label}>{t('startTime')}}</Text>
                     <TextInput
                       style={styles.input}
                       value={slot.startTime}
@@ -327,7 +327,7 @@ export default function EditCourse() {
                     />
                   </View>
                   <View style={styles.timeInput}>
-                    <Text style={styles.label}>{{t('endTime')}}</Text>
+                    <Text style={styles.label}>{t('endTime')}}</Text>
                     <TextInput
                       style={styles.input}
                       value={slot.endTime}
