@@ -1,13 +1,19 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import mobileAds from 'react-native-google-mobile-ads';
+import { Platform } from 'react-native';
 
 const AD_FREE_KEY = '@ad_free_purchased';
 const LAST_POPUP_KEY = '@last_ad_popup';
 
-// Initialize Mobile Ads
+// Initialize Mobile Ads (only on native platforms)
 export async function initializeAds() {
+  if (Platform.OS === 'web') {
+    console.log('Ads not supported on web');
+    return;
+  }
+  
   try {
-    await mobileAds().initialize();
+    const mobileAds = require('react-native-google-mobile-ads').default;
+    await mobileAds.initialize();
     console.log('AdMob initialized');
   } catch (error) {
     console.error('Error initializing AdMob:', error);
