@@ -281,6 +281,7 @@ export default function Dashboard() {
           courses.map(renderCourseCard)
         )}
       </ScrollView>
+      <BannerAd />
     </SafeAreaView>
   );
 }
