@@ -7,13 +7,18 @@ import {
   TouchableOpacity,
   RefreshControl,
   Alert,
+  Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
 import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLanguage } from '../../i18n/LanguageContext';
-import BannerAd from '../../components/BannerAd';
+
+// Only import banner ad on native platforms
+const BannerAd = Platform.OS !== 'web' 
+  ? require('../../components/BannerAd').default 
+  : () => null;
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL + '/api';
 
