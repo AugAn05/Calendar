@@ -156,6 +156,10 @@ export const translations = {
     appSettings: 'Setări aplicație',
     about: 'Despre',
     version: 'Versiune',
+    notifications: 'Notificări',
+    testNotifications: 'Testează Notificările',
+    testNotificationsDesc: 'Trimite notificări de test imediat',
+    testNotificationsSent: 'Notificări de test trimise! Verifică în 2-5 secunde.',
     
     // Add/Edit Course
     addCourse: 'Adaugă Curs',
