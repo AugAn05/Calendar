@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
+import { Platform } from 'react-native';
 import { LanguageProvider, useLanguage } from '../i18n/LanguageContext';
 import { initializeNotifications } from '../services/notificationService';
 import { initializeAds } from '../services/adService';
-import SupportCreatorModal from '../components/SupportCreatorModal';
+
+// Only import support modal on native platforms
+const SupportCreatorModal = Platform.OS !== 'web' 
+  ? require('../components/SupportCreatorModal').default 
+  : () => null;
 
 function RootLayoutContent() {
   const { language } = useLanguage();
@@ -20,7 +25,7 @@ function RootLayoutContent() {
   return (
     <>
       <StatusBar style="light" />
-      <SupportCreatorModal />
+      {Platform.OS !== 'web' && <SupportCreatorModal />}
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="add-course" options={{ presentation: 'modal' }} />
