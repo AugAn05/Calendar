@@ -12,8 +12,8 @@ export async function initializeAds() {
   }
   
   try {
-    const mobileAds = require('react-native-google-mobile-ads').default;
-    await mobileAds.initialize();
+    const GoogleMobileAds = require('react-native-google-mobile-ads');
+    await GoogleMobileAds.default().initialize();
     console.log('AdMob initialized');
   } catch (error) {
     console.error('Error initializing AdMob:', error);
