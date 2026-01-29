@@ -69,6 +69,29 @@ export default function Settings() {
           </View>
         </View>
 
+        {/* Notifications Section */}
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>{t('notifications')}</Text>
+          <TouchableOpacity 
+            style={styles.testButton}
+            onPress={handleTestNotifications}
+            disabled={isSendingTest}
+          >
+            <View style={styles.testButtonContent}>
+              <Ionicons name="notifications-outline" size={24} color="#4A90E2" />
+              <View style={styles.testButtonText}>
+                <Text style={styles.testButtonTitle}>{t('testNotifications')}</Text>
+                <Text style={styles.testButtonDesc}>{t('testNotificationsDesc')}</Text>
+              </View>
+            </View>
+            {isSendingTest ? (
+              <Text style={styles.sendingText}>...</Text>
+            ) : (
+              <Ionicons name="chevron-forward" size={20} color="#8E8E93" />
+            )}
+          </TouchableOpacity>
+        </View>
+
         {/* About Section */}
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>{t('about')}</Text>
