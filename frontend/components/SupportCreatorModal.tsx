@@ -61,7 +61,7 @@ export default function SupportCreatorModal() {
   };
 
   const checkAndShowPopup = async () => {
-    const should Show = await shouldShowSupportPopup();
+    const shouldShow = await shouldShowSupportPopup();
     if (shouldShow) {
       // Wait a bit before showing popup (not immediately on app start)
       setTimeout(() => {
