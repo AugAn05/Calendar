@@ -344,7 +344,8 @@ export async function sendTestNotifications(language: string = 'en'): Promise<vo
         sound: true,
       },
       trigger: {
-        seconds: 2, // Trigger in 2 seconds
+        type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+        seconds: 2,
       },
     });
 
@@ -359,11 +360,12 @@ export async function sendTestNotifications(language: string = 'en'): Promise<vo
         sound: true,
       },
       trigger: {
-        seconds: 5, // Trigger in 5 seconds
+        type: Notifications.SchedulableTriggerInputTypes.TIME_INTERVAL,
+        seconds: 5,
       },
     });
 
-    console.log('Test notifications scheduled!');
+    console.log('Test notifications scheduled successfully!');
     return Promise.resolve();
   } catch (error) {
     console.error('Error sending test notifications:', error);
