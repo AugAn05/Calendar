@@ -207,6 +207,13 @@ export const translations = {
     success: 'Succes',
     confirm: 'Confirmă',
     
+    // Notifications
+    notificationAfterClassTitle: 'Ora tocmai s-a terminat!',
+    notificationAfterClassBody: 'Nu uita să marchezi prezența pentru {courseName}',
+    notificationBeforeClassTitle: 'Oră următoare',
+    notificationBeforeClassBody: '{courseName} începe în curând. Mai trebuie să participi la {needed} {classWord}',
+    notificationBeforeClassBodyMet: '{courseName} începe în curând. Ai îndeplinit cerința de prezență!',
+    
     // Delete Dialog
     deleteTitle: 'Șterge Curs',
     deleteMessage: 'Ești sigur că vrei să ștergi "{name}"? Aceasta va șterge și toate înregistrările de prezență.',
