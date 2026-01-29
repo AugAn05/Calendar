@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLanguage } from '../../i18n/LanguageContext';
 import { Language } from '../../i18n/translations';
+import { sendTestNotifications } from '../../services/notificationService';
 
 export default function Settings() {
   const { language, setLanguage, t } = useLanguage();
+  const [isSendingTest, setIsSendingTest] = useState(false);
 
   const languages: { code: Language; name: string; flag: string }[] = [
     { code: 'en', name: t('english'), flag: '🇬🇧' },
