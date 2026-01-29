@@ -6,13 +6,27 @@ import {
   Modal,
   TouchableOpacity,
   ActivityIndicator,
+  Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { RewardedAd, RewardedAdEventType, TestIds } from 'react-native-google-mobile-ads';
 import { shouldShowSupportPopup, markPopupShown, AD_IDS } from '../services/adService';
 import { useLanguage } from '../i18n/LanguageContext';
 
-const rewarded = RewardedAd.createForAdRequest(AD_IDS.rewarded);
+// Only use rewarded ads on native platforms
+let RewardedAd: any = null;
+let RewardedAdEventType: any = null;
+let rewarded: any = null;
+
+if (Platform.OS !== 'web') {
+  try {
+    const GoogleMobileAds = require('react-native-google-mobile-ads');
+    RewardedAd = GoogleMobileAds.RewardedAd;
+    RewardedAdEventType = GoogleMobileAds.RewardedAdEventType;
+    rewarded = RewardedAd.createForAdRequest(AD_IDS.rewarded);
+  } catch (error) {
+    console.log('Failed to load rewarded ads:', error);
+  }
+}
 
 export default function SupportCreatorModal() {
   const { t } = useLanguage();
@@ -21,9 +35,14 @@ export default function SupportCreatorModal() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    checkAndShowPopup();
-    setupAdListeners();
-    loadAd();
+    // Only check for popup on native platforms
+    if (Platform.OS !== 'web') {
+      checkAndShowPopup();
+      if (rewarded) {
+        setupAdListeners();
+        loadAd();
+      }
+    }
 
     return () => {
       // Cleanup listeners
@@ -31,6 +50,8 @@ export default function SupportCreatorModal() {
   }, []);
 
   const setupAdListeners = () => {
+    if (!rewarded || !RewardedAdEventType) return;
+
     const loadedListener = rewarded.addAdEventListener(
       RewardedAdEventType.LOADED,
       () => {
@@ -42,7 +63,7 @@ export default function SupportCreatorModal() {
 
     const earnedListener = rewarded.addAdEventListener(
       RewardedAdEventType.EARNED_REWARD,
-      reward => {
+      (reward: any) => {
         console.log('User earned reward:', reward);
         setVisible(false);
         // You could track this or give the user something
@@ -56,8 +77,10 @@ export default function SupportCreatorModal() {
   };
 
   const loadAd = () => {
-    setLoading(true);
-    rewarded.load();
+    if (rewarded) {
+      setLoading(true);
+      rewarded.load();
+    }
   };
 
   const checkAndShowPopup = async () => {
@@ -71,10 +94,10 @@ export default function SupportCreatorModal() {
   };
 
   const handleWatchAd = () => {
-    if (adLoaded) {
+    if (adLoaded && rewarded) {
       markPopupShown();
       rewarded.show();
-    } else {
+    } else if (rewarded) {
       setLoading(true);
       loadAd();
     }
@@ -84,6 +107,11 @@ export default function SupportCreatorModal() {
     markPopupShown();
     setVisible(false);
   };
+
+  // Don't render on web
+  if (Platform.OS === 'web') {
+    return null;
+  }
 
   return (
     <Modal
