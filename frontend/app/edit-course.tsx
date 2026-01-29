@@ -167,14 +167,14 @@ export default function EditCourse() {
         <TouchableOpacity onPress={() => router.back()} style={styles.closeButton}>
           <Ionicons name="close" size={28} color="#FFFFFF" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Edit Course</Text>
+        <Text style={styles.headerTitle}>{t('editCourse')}</Text>
         <TouchableOpacity
           onPress={handleSubmit}
           disabled={isSubmitting}
           style={styles.saveButton}
         >
           <Text style={[styles.saveButtonText, isSubmitting && styles.saveButtonDisabled]}>
-            Save
+            {t('save')}
           </Text>
         </TouchableOpacity>
       </View>
