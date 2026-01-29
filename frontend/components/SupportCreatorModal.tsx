@@ -16,6 +16,7 @@ import { useLanguage } from '../i18n/LanguageContext';
 let RewardedAd: any = null;
 let RewardedAdEventType: any = null;
 let rewarded: any = null;
+let adsAvailable = false;
 
 if (Platform.OS !== 'web') {
   try {
@@ -23,8 +24,10 @@ if (Platform.OS !== 'web') {
     RewardedAd = GoogleMobileAds.RewardedAd;
     RewardedAdEventType = GoogleMobileAds.RewardedAdEventType;
     rewarded = RewardedAd.createForAdRequest(AD_IDS.rewarded);
+    adsAvailable = true;
   } catch (error) {
-    console.log('Failed to load rewarded ads:', error);
+    console.log('AdMob not available - requires development build');
+    adsAvailable = false;
   }
 }
 
