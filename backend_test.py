@@ -10,7 +10,7 @@ import sys
 from datetime import datetime, timedelta
 
 # Backend URL from frontend .env
-BACKEND_URL = "https://studattend.preview.emergentagent.com/api"
+BACKEND_URL = "https://studyplanner-98.preview.emergentagent.com/api"
 
 class UniversityCalendarTester:
     def __init__(self):
