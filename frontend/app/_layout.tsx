@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { LanguageProvider } from '../i18n/LanguageContext';
+import { LanguageProvider, useLanguage } from '../i18n/LanguageContext';
+import { initializeNotifications } from '../services/notificationService';
 
-export default function RootLayout() {
+function RootLayoutContent() {
+  const { language } = useLanguage();
+
+  useEffect(() => {
+    // Initialize notifications when app starts
+    initializeNotifications(language);
+  }, [language]);
+
   return (
-    <LanguageProvider>
+    <>
       <StatusBar style="light" />
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(tabs)" />
@@ -14,6 +22,14 @@ export default function RootLayout() {
         <Stack.Screen name="mark-attendance" options={{ presentation: 'modal' }} />
         <Stack.Screen name="bulk-attendance" options={{ presentation: 'modal' }} />
       </Stack>
+    </>
+  );
+}
+
+export default function RootLayout() {
+  return (
+    <LanguageProvider>
+      <RootLayoutContent />
     </LanguageProvider>
   );
 }
