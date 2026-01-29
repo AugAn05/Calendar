@@ -14,10 +14,11 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useLanguage } from '../i18n/LanguageContext';
+import { scheduleCourseNotifications } from '../services/notificationService';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL + '/api';
 
-const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const COLORS = ['#4A90E2', '#50C878', '#FFB347', '#FF6B6B', '#9B59B6', '#3498DB', '#E74C3C'];
 
 interface ScheduleSlot {
