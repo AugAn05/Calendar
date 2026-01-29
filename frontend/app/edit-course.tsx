@@ -61,14 +61,19 @@ export default function EditCourse() {
       const data = await response.json();
       setName(data.name);
       setType(data.type);
-      setMinAttendance(data.minAttendancePercentage.toString());
+      if (data.minAttendancePercentage) {
+        setMinAttendance(data.minAttendancePercentage.toString());
+      }
+      if (data.minAttendanceClasses) {
+        setMinAttendanceClasses(data.minAttendanceClasses.toString());
+      }
       setSelectedColor(data.color);
       setSchedule(data.schedule);
       if (data.totalClassesInSemester) {
         setTotalClassesInSemester(data.totalClassesInSemester.toString());
       }
     } catch (error) {
-      Alert.alert('Error', 'Failed to load course');
+      Alert.alert(t('error'), 'Failed to load course');
       router.back();
     } finally {
       setLoading(false);
