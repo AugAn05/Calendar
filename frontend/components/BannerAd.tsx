@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Platform } from 'react-native';
+import { View, StyleSheet, Platform, Text } from 'react-native';
 import { isAdFree } from '../services/adService';
 
 // Only import native ads on mobile platforms
 let BannerAd: any = null;
 let BannerAdSize: any = null;
+let adsAvailable = false;
 
 if (Platform.OS !== 'web') {
-  const GoogleMobileAds = require('react-native-google-mobile-ads');
-  BannerAd = GoogleMobileAds.BannerAd;
-  BannerAdSize = GoogleMobileAds.BannerAdSize;
+  try {
+    const GoogleMobileAds = require('react-native-google-mobile-ads');
+    BannerAd = GoogleMobileAds.BannerAd;
+    BannerAdSize = GoogleMobileAds.BannerAdSize;
+    adsAvailable = true;
+  } catch (error) {
+    console.log('AdMob not available - requires development build');
+    adsAvailable = false;
+  }
 }
 
 const AD_IDS = {
@@ -30,8 +37,8 @@ export default function BannerAdComponent() {
     setShowAd(!adFree);
   };
 
-  // Don't show ads on web
-  if (Platform.OS === 'web' || !showAd || !BannerAd) {
+  // Don't show ads on web or if module not available
+  if (Platform.OS === 'web' || !showAd || !adsAvailable || !BannerAd) {
     return null;
   }
 
