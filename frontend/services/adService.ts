@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 const AD_FREE_KEY = '@ad_free_purchased';
 const LAST_POPUP_KEY = '@last_ad_popup';
 
-// Initialize Mobile Ads (only on native platforms)
+// Initialize Mobile Ads (only works with development build, not Expo Go)
 export async function initializeAds() {
   if (Platform.OS === 'web') {
     console.log('Ads not supported on web');
@@ -13,10 +13,14 @@ export async function initializeAds() {
   
   try {
     const GoogleMobileAds = require('react-native-google-mobile-ads');
-    await GoogleMobileAds.default().initialize();
-    console.log('AdMob initialized');
+    if (GoogleMobileAds && GoogleMobileAds.default) {
+      await GoogleMobileAds.default().initialize();
+      console.log('AdMob initialized successfully');
+    } else {
+      console.log('AdMob not available - requires development build');
+    }
   } catch (error) {
-    console.error('Error initializing AdMob:', error);
+    console.log('AdMob not available in Expo Go - this is normal. Ads will work after building the app.');
   }
 }
 
