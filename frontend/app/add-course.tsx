@@ -26,6 +26,7 @@ interface ScheduleSlot {
 }
 
 export default function AddCourse() {
+  const { t } = useLanguage();
   const [name, setName] = useState('');
   const [type, setType] = useState<'course' | 'seminar'>('course');
   const [minAttendance, setMinAttendance] = useState('');
@@ -34,6 +35,17 @@ export default function AddCourse() {
   const [selectedColor, setSelectedColor] = useState(COLORS[0]);
   const [schedule, setSchedule] = useState<ScheduleSlot[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Days array using translations
+  const DAYS = [
+    { key: 'Monday', label: t('monday') },
+    { key: 'Tuesday', label: t('tuesday') },
+    { key: 'Wednesday', label: t('wednesday') },
+    { key: 'Thursday', label: t('thursday') },
+    { key: 'Friday', label: t('friday') },
+    { key: 'Saturday', label: t('saturday') },
+    { key: 'Sunday', label: t('sunday') },
+  ];
 
   const addScheduleSlot = () => {
     setSchedule([...schedule, { day: 'Monday', startTime: '09:00', endTime: '10:00' }]);
