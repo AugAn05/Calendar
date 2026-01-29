@@ -149,35 +149,4 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#8E8E93',
   },
-  testButton: {
-    backgroundColor: '#1C1C1E',
-    borderRadius: 12,
-    padding: 16,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  testButtonContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  testButtonText: {
-    marginLeft: 12,
-    flex: 1,
-  },
-  testButtonTitle: {
-    fontSize: 17,
-    fontWeight: '500',
-    color: '#FFFFFF',
-    marginBottom: 4,
-  },
-  testButtonDesc: {
-    fontSize: 14,
-    color: '#8E8E93',
-  },
-  sendingText: {
-    fontSize: 17,
-    color: '#8E8E93',
-  },
 });
