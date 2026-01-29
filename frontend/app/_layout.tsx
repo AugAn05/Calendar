@@ -4,12 +4,13 @@ import { StatusBar } from 'expo-status-bar';
 import { Platform } from 'react-native';
 import { LanguageProvider, useLanguage } from '../i18n/LanguageContext';
 import { initializeNotifications } from '../services/notificationService';
-import { initializeAds } from '../services/adService';
+// Ads disabled for Expo Go - will work in production build
+// import { initializeAds } from '../services/adService';
 
-// Only import support modal on native platforms
-const SupportCreatorModal = Platform.OS !== 'web' 
-  ? require('../components/SupportCreatorModal').default 
-  : () => null;
+// Support modal disabled for Expo Go - will work in production build
+// const SupportCreatorModal = Platform.OS !== 'web' 
+//   ? require('../components/SupportCreatorModal').default 
+//   : () => null;
 
 function RootLayoutContent() {
   const { language } = useLanguage();
@@ -18,14 +19,16 @@ function RootLayoutContent() {
     // Initialize notifications when app starts
     initializeNotifications(language);
     
-    // Initialize ads
-    initializeAds();
+    // Initialize ads (disabled for Expo Go)
+    // Uncomment this line when building for production:
+    // initializeAds();
   }, [language]);
 
   return (
     <>
       <StatusBar style="light" />
-      {Platform.OS !== 'web' && <SupportCreatorModal />}
+      {/* Support modal disabled for Expo Go */}
+      {/* {Platform.OS !== 'web' && <SupportCreatorModal />} */}
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="add-course" options={{ presentation: 'modal' }} />
