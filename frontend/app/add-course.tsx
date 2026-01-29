@@ -135,6 +135,11 @@ export default function AddCourse() {
       });
 
       if (response.ok) {
+        const newCourse = await response.json();
+        
+        // Schedule notifications for the new course
+        await scheduleCourseNotifications(newCourse, language);
+        
         Alert.alert(t('success'), 'Course added successfully');
         router.back();
       } else {
