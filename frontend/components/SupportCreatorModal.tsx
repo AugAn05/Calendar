@@ -38,8 +38,8 @@ export default function SupportCreatorModal() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Only check for popup on native platforms
-    if (Platform.OS !== 'web') {
+    // Only check for popup on native platforms with ads available
+    if (Platform.OS !== 'web' && adsAvailable) {
       checkAndShowPopup();
       if (rewarded) {
         setupAdListeners();
