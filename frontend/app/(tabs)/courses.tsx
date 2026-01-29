@@ -16,6 +16,7 @@ import { router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import ConfirmDialog from '../../components/ConfirmDialog';
 import { useLanguage } from '../../i18n/LanguageContext';
+import { cancelCourseNotifications } from '../../services/notificationService';
 
 const API_URL = process.env.EXPO_PUBLIC_BACKEND_URL + '/api';
 
