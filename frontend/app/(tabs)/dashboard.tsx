@@ -286,8 +286,7 @@ export default function Dashboard() {
           courses.map(renderCourseCard)
         )}
       </ScrollView>
-      {/* Banner ad disabled for Expo Go */}
-      {/* <BannerAd /> */}
+      <BannerAd />
     </SafeAreaView>
   );
 }
