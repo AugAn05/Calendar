@@ -94,6 +94,13 @@ export const translations = {
     success: 'Success',
     confirm: 'Confirm',
     
+    // Notifications
+    notificationAfterClassTitle: 'Class Just Ended!',
+    notificationAfterClassBody: "Don't forget to mark your attendance for {courseName}",
+    notificationBeforeClassTitle: 'Upcoming Class',
+    notificationBeforeClassBody: '{courseName} starts soon. You need {needed} more {classWord} to meet the requirement',
+    notificationBeforeClassBodyMet: '{courseName} starts soon. You have met the attendance requirement!',
+    
     // Delete Dialog
     deleteTitle: 'Delete Course',
     deleteMessage: 'Are you sure you want to delete "{name}"? This will also delete all attendance records.',
