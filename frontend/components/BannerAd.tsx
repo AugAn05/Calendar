@@ -1,7 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
-import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
-import { isAdFree, AD_IDS } from '../services/adService';
+import { isAdFree } from '../services/adService';
+
+// Only import native ads on mobile platforms
+let BannerAd: any = null;
+let BannerAdSize: any = null;
+
+if (Platform.OS !== 'web') {
+  const GoogleMobileAds = require('react-native-google-mobile-ads');
+  BannerAd = GoogleMobileAds.BannerAd;
+  BannerAdSize = GoogleMobileAds.BannerAdSize;
+}
+
+const AD_IDS = {
+  banner: __DEV__ 
+    ? 'ca-app-pub-3940256099942544/6300978111' // Test banner ID
+    : 'ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY', // Your real banner ID
+};
 
 export default function BannerAdComponent() {
   const [showAd, setShowAd] = useState(true);
@@ -15,7 +30,8 @@ export default function BannerAdComponent() {
     setShowAd(!adFree);
   };
 
-  if (!showAd) {
+  // Don't show ads on web
+  if (Platform.OS === 'web' || !showAd || !BannerAd) {
     return null;
   }
 
@@ -30,7 +46,7 @@ export default function BannerAdComponent() {
         onAdLoaded={() => {
           console.log('Banner ad loaded');
         }}
-        onAdFailedToLoad={(error) => {
+        onAdFailedToLoad={(error: any) => {
           console.log('Banner ad failed to load:', error);
         }}
       />
