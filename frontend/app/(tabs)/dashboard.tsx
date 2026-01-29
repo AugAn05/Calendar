@@ -59,6 +59,16 @@ export default function Dashboard() {
     fetchCourses();
   };
 
+  const translateCourseType = (type: string) => {
+    const typeMap: { [key: string]: string } = {
+      'course': t('course'),
+      'seminar': t('seminar'),
+      'laboratory': t('laboratory'),
+      'lecture': t('lecture'),
+    };
+    return typeMap[type] || type;
+  };
+
   const calculateAttendance = (course: Course) => {
     // Use totalClassesInSemester if set, otherwise use totalClasses
     const total = course.totalClassesInSemester || course.totalClasses;
