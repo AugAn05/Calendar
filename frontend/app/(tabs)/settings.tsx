@@ -14,25 +14,6 @@ import { Language } from '../../i18n/translations';
 export default function Settings() {
   const { language, setLanguage, t } = useLanguage();
 
-  const handleTestNotifications = async () => {
-    setIsSendingTest(true);
-    try {
-      await sendTestNotifications(language);
-      Alert.alert(
-        t('success'), 
-        t('testNotificationsSent')
-      );
-    } catch (error: any) {
-      console.error('Test notification error:', error);
-      const errorMessage = language === 'ro' 
-        ? 'Nu s-au putut trimite notificările de test. Te rog verifică permisiunile pentru notificări în setările telefonului (Setări → Aplicații → Expo Go → Notificări).'
-        : 'Failed to send test notifications. Please check notification permissions in your phone settings (Settings → Apps → Expo Go → Notifications).';
-      Alert.alert(t('error'), errorMessage);
-    } finally {
-      setIsSendingTest(false);
-    }
-  };
-
   const languages: { code: Language; name: string; flag: string }[] = [
     { code: 'en', name: t('english'), flag: '🇬🇧' },
     { code: 'ro', name: t('romanian'), flag: '🇷🇴' },
