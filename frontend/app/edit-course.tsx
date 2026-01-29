@@ -185,9 +185,9 @@ export default function EditCourse() {
       >
         <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
           <View style={styles.section}>
-            <Text style={styles.sectionTitle}>Basic Information</Text>
+            <Text style={styles.sectionTitle}>{t('basicInformation')}</Text>
             
-            <Text style={styles.label}>Course Name</Text>
+            <Text style={styles.label}>{t('courseName')}</Text>
             <TextInput
               style={styles.input}
               value={name}
@@ -196,7 +196,7 @@ export default function EditCourse() {
               placeholderTextColor="#8E8E93"
             />
 
-            <Text style={styles.label}>Type</Text>
+            <Text style={styles.label}>{t('type')}</Text>
             <View style={styles.typeButtons}>
               <TouchableOpacity
                 style={[
